@@ -11,10 +11,14 @@
             "id": "95cceb3a9efabc4a",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "02-DailyMemo/2025-05-29.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "2025-05-29"
             }
           }
         ]
@@ -45,7 +49,7 @@
         "state": {
           "type": "search",
           "state": {
-            "query": "tag:#キャリア",
+            "query": "",
             "matchingCase": false,
             "explainSearch": false,
             "collapseAll": false,
@@ -82,7 +86,7 @@
         }
       }
     ],
-    "currentTab": 1
+    "currentTab": 0
   },
   "right": {
     "id": "42de8a21b3049af8",
