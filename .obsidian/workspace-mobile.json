@@ -20,8 +20,19 @@
               "icon": "lucide-file",
               "title": "2025-05-29"
             }
+          },
+          {
+            "id": "bda3f90926a23712",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -153,8 +164,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "95cceb3a9efabc4a",
+  "active": "bda3f90926a23712",
   "lastOpenFiles": [
+    "02-DailyMemo/2025-05-29.md",
+    "4.NestJSの概要.md",
     "01-Templete/DailyMemoTemplete.md",
     "01-Templete/構造化面接Templete.md",
     "01-Templete/Templete.md",
@@ -184,8 +197,6 @@
     "04-book/レジリエンス強化法.md",
     "04-book/数千時間にわたる研究で明らかになった【誤解の防ぎ方】.md",
     "04-book/最強の就職心理戦略セミナー.md",
-    "04-book/記憶集中力2倍スキマ時間の使い方.md",
-    "04-book/想像力.md",
     "04-book",
     "2-DailyMemo",
     "3-interview",
