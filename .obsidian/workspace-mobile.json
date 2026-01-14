@@ -25,10 +25,14 @@
             "id": "bda3f90926a23712",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "07-prompt/kabe.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "kabe"
             }
           }
         ],
@@ -156,6 +160,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -166,6 +171,8 @@
   },
   "active": "bda3f90926a23712",
   "lastOpenFiles": [
+    "07-prompt/kabe.md",
+    "07-prompt",
     "02-DailyMemo/2025-05-29.md",
     "4.NestJSの概要.md",
     "01-Templete/DailyMemoTemplete.md",
@@ -196,7 +203,6 @@
     "04-book/目標達成度UP新年の抱負.md",
     "04-book/レジリエンス強化法.md",
     "04-book/数千時間にわたる研究で明らかになった【誤解の防ぎ方】.md",
-    "04-book/最強の就職心理戦略セミナー.md",
     "04-book",
     "2-DailyMemo",
     "3-interview",
