@@ -36,6 +36,18 @@
             }
           },
           {
+            "id": "bdf79d4239148104",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.10.3"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.10.3"
+            }
+          },
+          {
             "id": "f0a0ed3b02f186b9",
             "type": "leaf",
             "state": {
@@ -46,7 +58,7 @@
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -195,8 +207,13 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "f2f532aa6cf004d7",
+  "active": "bdf79d4239148104",
   "lastOpenFiles": [
+    "06-output/anglers_knowledge_アプリweb.md",
+    "06-output/anglersでのoutput.md",
+    "06-output/anglersoutput.md",
+    "another-todo-task/app/task-007-results-csv-export.md",
+    "another-todo-task/app/task-006-remove-settings-menu-items.md",
     "02-DailyMemo/無題のファイル.md",
     "02-DailyMemo/2025-08-19.md",
     "02-DailyMemo/2025-05-23.md",
@@ -221,12 +238,8 @@
     "面接/a",
     "3-interview/フロントエンジニア構造化面接【山口典音】.md",
     "1-Templete",
-    "GitLabMeeting.md",
     "3-interview",
-    "2025-05-20.md",
     "Untitled.canvas",
-    "globals.mdc",
-    "README.md",
-    "Welcome.md"
+    "globals.mdc"
   ]
 }

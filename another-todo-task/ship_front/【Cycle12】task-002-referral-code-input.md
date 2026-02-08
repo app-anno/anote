@@ -42,7 +42,10 @@ graph LR
 |------|------|
 | **専用フィールド** | 「ご要望・ご相談」とは別に紹介コード入力欄を設置 |
 | **自動入力** | localStorageに紹介コードを保存し、予約フォームで自動入力 |
-| **バリデーション** | 6文字の英数字のみ許可（存在チェックはサーバー側） |
+| **バリデーション** | チェックなし（サーバー側に任せる） |
+| **Disabled制御** | 紹介セッション継続中は自動入力 & Disabled |
+| **リセット機能** | リセットボタンでlocalStorage削除 & 入力欄クリア |
+| **上書き禁止** | localStorage既存時は新しいリンククリックで上書きしない |
 
 ---
 
@@ -97,6 +100,92 @@ sequenceDiagram
 
 ---
 
+## 入力欄の状態管理（壁打ち追加要件）
+
+### 状態遷移
+
+| 状態 | Input | リセットボタン | 説明 |
+|------|-------|---------------|------|
+| 紹介セッション継続中 | 自動入力 & **Disabled** | 表示 | localStorageに値がある場合 |
+| リセット後 | 空 & 編集可能 | 非表示 | リセットボタン押下後 |
+| 通常（紹介なし） | 空 & 編集可能 | 非表示 | localStorageに値がない場合 |
+
+### フロー図
+
+```mermaid
+stateDiagram-v2
+    [*] --> 通常: localStorage空
+    [*] --> 紹介セッション中: localStorageに値あり
+
+    紹介セッション中 --> リセット後: リセットボタン押下
+    リセット後 --> 通常: そのまま（不可逆）
+
+    通常 --> 手動入力: ユーザーが入力
+    リセット後 --> 手動入力: ユーザーが入力
+
+    紹介セッション中 --> 予約完了: 予約成功
+    手動入力 --> 予約完了: 予約成功
+    予約完了 --> [*]: localStorage削除
+```
+
+### リセット挙動の詳細
+
+- **リセット = 不可逆**: リセット後に元の自動入力値には戻せない
+- **localStorage削除**: リセット時にlocalStorageからも削除
+- **次回訪問時**: 空欄スタート（紹介コードを使いたい場合は手動入力）
+
+### 上書き禁止ロジック
+
+紹介コード入力後（または自動入力後）に別の紹介リンクをクリックした場合：
+- **上書きしない**: 最初に保存された値を維持
+- **理由**: 手動入力優先の考え方と整合性を保つ
+
+---
+
+## 予約確認画面の表示（壁打ち追加要件）
+
+### 表示パターン
+
+| 状態 | 表示内容 |
+|------|----------|
+| 紹介コード入力あり | 紹介コード: `abc123` |
+| 紹介コード入力なし | 「紹介された予約ではありません。」 |
+
+### UI配置
+- **位置**: ご要望・ご相談 と お支払い金額の内訳 の間
+- **常に表示**: 入力の有無に関わらずセクションを表示（紹介状態の確認用途）
+
+---
+
+## マイページ改善（壁打ち追加スコープ）
+
+### 変更内容
+
+#### 1. shareKey表示 & コピーボタン追加
+- アンバサダーカードに自分の紹介コード（shareKey）を表示
+- コピーボタンで簡単にクリップボードにコピー
+- ※ IDがそのままシェアキーになっている仕様（追加API不要の可能性）
+
+#### 2. 「上位30位で翌月のトップアンバサダー」テキスト削除
+- マイページのアンバサダーカードからのみ削除
+- 他の画面では使用していない
+
+### 実装箇所
+- `src/features/mypage/components/ambassador-card/` または類似のコンポーネント（要調査）
+
+---
+
+## エッジケース対応（壁打ち確定）
+
+| ケース | 対応 | 理由 |
+|--------|------|------|
+| **セルフリファラル** | チェックなしで許可 | バッチ側で対応。フロントでは制限しない |
+| **紹介コード入力後にリンククリック** | 上書きしない | 最初の値を維持（手動入力優先の考え方） |
+| **フォーマット不正** | チェックなし | サーバーに任せる |
+| **存在しない紹介コード** | エラーにしない | サーバー側で無視して予約は成功させる |
+
+---
+
 ## 事前調査で把握した既存実装
 
 | ファイル | 内容 | 本タスクとの関連 |
@@ -129,6 +218,7 @@ type StoredReferralCode = {
 
 export const useReferralCodeStorage = () => {
   const [referralCode, setReferralCode] = useState<string | null>(null);
+  const [isFromStorage, setIsFromStorage] = useState(false); // 自動入力かどうか
 
   // 初期化: localStorageから取得
   useEffect(() => {
@@ -139,6 +229,7 @@ export const useReferralCodeStorage = () => {
       const parsed: StoredReferralCode = JSON.parse(stored);
       if (parsed.expiresAt > Date.now()) {
         setReferralCode(parsed.code);
+        setIsFromStorage(true); // localStorageから取得した = 自動入力
       } else {
         localStorage.removeItem(STORAGE_KEY);
       }
@@ -147,24 +238,40 @@ export const useReferralCodeStorage = () => {
     }
   }, []);
 
-  // 保存
+  // 保存（上書き禁止: 既に値がある場合は保存しない）
   const saveReferralCode = useCallback((code: string) => {
+    // 上書き禁止: 既にlocalStorageに値がある場合は何もしない
+    const existing = localStorage.getItem(STORAGE_KEY);
+    if (existing) {
+      try {
+        const parsed: StoredReferralCode = JSON.parse(existing);
+        if (parsed.expiresAt > Date.now()) {
+          return; // 有効な値が既に存在するので上書きしない
+        }
+      } catch {
+        // パースエラーの場合は上書きを許可
+      }
+    }
+
     const data: StoredReferralCode = {
       code: code.toLowerCase().trim(),
       expiresAt: Date.now() + EXPIRY_DAYS * 24 * 60 * 60 * 1000,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     setReferralCode(data.code);
+    setIsFromStorage(true);
   }, []);
 
-  // 削除
+  // 削除（リセット用）
   const clearReferralCode = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY);
     setReferralCode(null);
+    setIsFromStorage(false);
   }, []);
 
   return {
     referralCode,
+    isFromStorage, // Disabled制御に使用
     saveReferralCode,
     clearReferralCode,
   };
@@ -198,7 +305,7 @@ export const useReferralCodeFromUrl = () => {
 
 ---
 
-### 3. 紹介コード入力コンポーネント作成
+### 3. 紹介コード入力コンポーネント作成（Disabled & リセットボタン対応）
 
 **ファイル**: `src/features/reserve/components/referral-code-input/index.tsx`（新規）
 
@@ -207,33 +314,57 @@ export const useReferralCodeFromUrl = () => {
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   value: string;
   onChange: (value: string) => void;
-  disabled?: boolean;
+  isFromStorage: boolean; // localStorageからの自動入力かどうか
+  onReset: () => void; // リセットボタン押下時のコールバック
 };
 
-export const ReferralCodeInput = ({ value, onChange, disabled }: Props) => {
+export const ReferralCodeInput = ({
+  value,
+  onChange,
+  isFromStorage,
+  onReset,
+}: Props) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 6文字の英数字のみ許可
-    const normalized = e.target.value.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 6);
-    onChange(normalized);
+    // フォーマットチェックなし（サーバー任せ）
+    onChange(e.target.value);
   };
+
+  const handleReset = () => {
+    onReset();
+  };
+
+  // 紹介セッション継続中 = Disabled
+  const isDisabled = isFromStorage && value !== "";
 
   return (
     <div className="space-y-2">
       <Label htmlFor="referral-code">紹介コード（任意）</Label>
-      <Input
-        id="referral-code"
-        type="text"
-        placeholder="例: abc123"
-        value={value}
-        onChange={handleChange}
-        disabled={disabled}
-        maxLength={6}
-        className="font-mono"
-      />
+      <div className="flex gap-2">
+        <Input
+          id="referral-code"
+          type="text"
+          placeholder="紹介コードを入力"
+          value={value}
+          onChange={handleChange}
+          disabled={isDisabled}
+          className="font-mono flex-1"
+        />
+        {isDisabled && (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleReset}
+          >
+            リセット
+          </Button>
+        )}
+      </div>
       <p className="text-xs text-muted-foreground">
         お知り合いから紹介コードを受け取っている場合は入力してください
       </p>
@@ -241,6 +372,13 @@ export const ReferralCodeInput = ({ value, onChange, disabled }: Props) => {
   );
 };
 ```
+
+#### 状態別の表示
+
+| 状態 | Input | リセットボタン |
+|------|-------|---------------|
+| `isFromStorage && value !== ""` | Disabled | 表示 |
+| `!isFromStorage \|\| value === ""` | 編集可能 | 非表示 |
 
 ---
 
@@ -426,6 +564,8 @@ gantt
 
 ## UI配置案
 
+### 予約入力画面
+
 ```
 予約フォーム
 ├── プラン情報
@@ -435,23 +575,67 @@ gantt
 ├── オプション選択
 ├── ────────────────
 ├── ご要望・ご相談
-├── 紹介コード（任意）  ← 新規追加
+├── 紹介コード（任意）  ← 新規追加（ご要望とお支払いの間）
 ├── ────────────────
+├── お支払い
 ├── 予約者情報
 └── 予約確定ボタン
 ```
+
+### 予約確認画面
+
+```
+予約確認
+├── 予約内容
+├── レンタル&オプション
+├── ────────────────
+├── ご要望・ご相談
+├── 紹介コード  ← 新規追加（ご要望とお支払い金額の間）
+│   └── 値あり: "abc123"
+│   └── 値なし: "紹介された予約ではありません。"
+├── ────────────────
+├── お支払い金額の内訳
+├── 予約者情報
+└── ...
+```
+
+### Figmaデザイン
+
+Figma: https://www.figma.com/design/khgFPYNj3aVRDIaWeM8IRl/2026.Q1?node-id=1044-1002&m=dev
 
 ---
 
 ## 壁打ち決定事項サマリー
 
-### 質問と回答一覧
+### 質問と回答一覧（2026-01-15 壁打ち）
+
 | # | 質問 | 決定 |
 |---|------|------|
-| 2 | 入力タイミング | A: 予約フォームに専用フィールド追加 |
-| 3 | 自動入力の仕組み | A: フロントでlocalStorageに保存し、予約フォームで自動入力 |
+| 1 | Cookie vs localStorage | **localStorage**（既存ドキュメントとの整合性、サーバー送信不要） |
+| 2 | 入力タイミング | 予約フォームに専用フィールド追加 |
+| 3 | 自動入力の仕組み | フロントでlocalStorageに保存し、予約フォームで自動入力 |
+| 4 | リセット後の挙動 | **不可逆（localStorage削除）** |
+| 5 | 上書き挙動 | **上書きしない**（最初の値を維持） |
+| 6 | マイページの扱い | **同一タスクに含める** |
+| 7 | セルフリファラル | **チェックなしで許可** |
+| 8 | ドキュメント構成 | **3分割**（モック→Core→繋ぎ込み） |
+| 9 | 確認画面の空欄表示 | **「紹介された予約ではありません。」** |
+| 10 | フォーマットチェック | **チェックなし**（サーバー任せ） |
 
-### 保留事項
+### 追加スコープ（壁打ちで確定）
+
+| 項目 | 内容 |
+|------|------|
+| マイページ改善 | shareKey表示 & コピーボタン追加、「上位30位で〜」削除 |
+| Disabled制御 | 紹介セッション継続中は自動入力 & Disabled |
+| リセットボタン | Disabled時にリセットボタン表示、押下でlocalStorage削除 |
+| 確認画面表示 | 入力有無に関わらずセクション表示 |
+
+### 確認が必要な実装詳細
+
 | 項目 | 理由 |
 |------|------|
 | 紹介リンク処理の正確な実装箇所 | 既存コードの調査が必要 |
+| shareKeyの取得方法 | IDがそのままシェアキー？既存実装を確認 |
+| 「上位30位で〜」の実装箇所 | 削除 or 条件分岐で非表示 |
+| リセットボタンのUI詳細 | Figmaで確認 |
