@@ -48,6 +48,18 @@
             }
           },
           {
+            "id": "94b683ba7beed64f",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.11.7"
+            }
+          },
+          {
             "id": "f0a0ed3b02f186b9",
             "type": "leaf",
             "state": {
@@ -58,7 +70,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -207,8 +219,13 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "bdf79d4239148104",
+  "active": "94b683ba7beed64f",
   "lastOpenFiles": [
+    "06-output/ABテストKnowledgeシェア.md",
+    "06-output/big-o-notation.md",
+    "06-output/algorithm-patterns.md",
+    "06-output/アルゴリズム勉強.md",
+    "06-output/e2e.md",
     "another-todo-task/Archive/ship_front/【Cycle12】task-002-referral-code-input.md",
     "another-todo-task/Archive/ship_front/task-001-seo-override-robustness.md",
     "another-todo-task/Archive/ship_front/task-001-1-search-category-seo-mockdata.md",
@@ -240,11 +257,6 @@
     "another-done-task/Archive/core",
     "another-done-task/Archive/app/【Cycle12】task-003-utm-source-unified-to-anglers-app.md",
     "another-done-task/Archive/app/task-001-fix-area-detail-interstitial-ad-immediately-closed.md",
-    "another-done-task/Archive/app/【Cycle12】task-003-interstitial-ad-not-displayed.md",
-    "another-done-task/Archive/app/task-003-fix-prefecture-results-period-filter.md",
-    "another-done-task/Archive/app/task-002-admob-production-id-verification.md",
-    "another-done-task/Archive/app/task-001-project-foundation-setup.md",
-    "another-done-task/Archive/app/task-001-developer-settings-ad-section-separation.md",
     "Untitled.canvas"
   ]
 }

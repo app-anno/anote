@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "07-prompt/kabe.md",
+                "file": "サラタメ/転職活動完全ガイド.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "kabe"
+              "title": "転職活動完全ガイド"
             }
           }
         ],
@@ -113,7 +113,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Untitled.md",
+            "file": "サラタメ/転職活動完全ガイド.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -171,6 +171,18 @@
   },
   "active": "bda3f90926a23712",
   "lastOpenFiles": [
+    "サラタメ/転職活動が失敗に終わる人の特徴５つ.md",
+    "サラタメ/転職の面接は、この流れ.md",
+    "サラタメ/転職エージェントの正しい選び方.md",
+    "サラタメ/短期離職対策.md",
+    "サラタメ/自己PRの作り方.md",
+    "サラタメ/志望理由のつくり方.md",
+    "サラタメ/何社応募がベストか.md",
+    "サラタメ/とりあえず3年は働いてみろの嘘.md",
+    "サラタメ/10年後のキャリアプラン.md",
+    "サラタメ/【転職界隈の闇】悪質スカウトメールを見抜いて、転職を成功させる方法.md",
+    "サラタメ/【回答例アリ】転職面接で頻出する「答えにくい質問」を全部まとめて解説します。.md",
+    "サラタメ/『転職の軸』の固め方を徹底解説.md",
     "07-prompt/kabe.md",
     "07-prompt",
     "02-DailyMemo/2025-05-29.md",
@@ -191,18 +203,6 @@
     "02-DailyMemo/無題のファイル.md",
     "02-DailyMemo",
     "04-book/小澤隆生 凡人の事業論.md",
-    "04-book/メンタル弱い性格を変える10の介入行動.md",
-    "04-book/バイアス.md",
-    "04-book/食べるとやばい「肌荒れ食品」と科学が見つけた「若肌の作り方」.md",
-    "04-book/ユーモアの科学.md",
-    "04-book/DaiGoが語るブランディング術.md",
-    "04-book/ステレオタイプ利用法.md",
-    "04-book/統計検定2級.md",
-    "04-book/読了リスト.md",
-    "04-book/気にしすぎ対策.md",
-    "04-book/目標達成度UP新年の抱負.md",
-    "04-book/レジリエンス強化法.md",
-    "04-book/数千時間にわたる研究で明らかになった【誤解の防ぎ方】.md",
     "04-book",
     "2-DailyMemo",
     "3-interview",
