@@ -25,10 +25,14 @@
             "id": "bda3f90926a23712",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "03-input/information/20260305-trend.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新規タブ"
+              "title": "20260305-trend"
             }
           }
         ],
@@ -51,7 +55,7 @@
             "autoReveal": false
           },
           "icon": "lucide-folder-closed",
-          "title": "Files"
+          "title": "ファイルエクスプローラ"
         }
       },
       {
@@ -167,41 +171,41 @@
   },
   "active": "bda3f90926a23712",
   "lastOpenFiles": [
-    "サラタメ/転職活動が失敗に終わる人の特徴５つ.md",
-    "サラタメ/転職の面接は、この流れ.md",
-    "サラタメ/転職エージェントの正しい選び方.md",
-    "サラタメ/短期離職対策.md",
-    "サラタメ/自己PRの作り方.md",
-    "サラタメ/志望理由のつくり方.md",
-    "サラタメ/何社応募がベストか.md",
-    "サラタメ/とりあえず3年は働いてみろの嘘.md",
-    "サラタメ/10年後のキャリアプラン.md",
-    "サラタメ/【転職界隈の闇】悪質スカウトメールを見抜いて、転職を成功させる方法.md",
-    "サラタメ/【回答例アリ】転職面接で頻出する「答えにくい質問」を全部まとめて解説します。.md",
-    "サラタメ/『転職の軸』の固め方を徹底解説.md",
-    "07-prompt/kabe.md",
+    "03-input/information/20260305-trend.md",
+    "02-DailyNote/2025-08-04.md",
+    "02-DailyNote/2025-07-09.md",
+    "02-DailyNote/2025-05-29.md",
+    "02-DailyNote/2025-05-31【コマセ五目】.md",
+    "02-DailyNote/2026-03-05.md",
+    "02-DailyNote/2025-06-17.md",
+    "02-DailyNote/2025-08-14.md",
+    "02-DailyNote/2025-06-03.md",
+    "02-DailyNote/2025-07-29.md",
+    "02-DailyNote/2025-06-02.md",
+    "02-DailyNote/2025-07-28.md",
+    "02-DailyNote/2025-08-05.md",
+    "02-DailyNote/2025-07-08.md",
+    "02-DailyNote/2025-05-28.md",
+    "02-DailyNote/2026-03-04.md",
+    "02-DailyNote/2025-07-18.md",
+    "02-DailyNote/2025-06-16.md",
+    "02-DailyNote/2025-05-23.md",
+    "02-DailyNote/2025-07-13.md",
+    "02-DailyNote/2025-07-07.md",
+    "02-DailyNote/2025-07-17.md",
+    "02-DailyNote/2025-07-23.md",
+    "02-DailyNote/2025-07-16.md",
+    "02-DailyNote/2025-07-22.md",
+    "02-DailyNote/2025-05-22.md",
+    "02-DailyNote",
     "07-prompt",
-    "02-DailyMemo/2025-05-29.md",
-    "4.NestJSの概要.md",
-    "01-Templete/DailyMemoTemplete.md",
-    "01-Templete/構造化面接Templete.md",
-    "01-Templete/Templete.md",
     "01-Templete",
     "06-output",
-    "03-interview/フロントエンジニア構造化面接.md",
-    "03-interview/フロントエンジニア構造化面接【山口典音】.md",
     "03-interview",
-    "05-anno/持ち歌.md",
     "05-anno",
-    "02-DailyMemo/2025-05-23.md",
-    "02-DailyMemo/2025-05-22.md",
-    "02-DailyMemo/2025-05-21.md",
-    "02-DailyMemo/無題のファイル.md",
     "02-DailyMemo",
-    "04-book/小澤隆生 凡人の事業論.md",
     "04-book",
     "2-DailyMemo",
-    "3-interview",
-    "1-Templete"
+    "3-interview"
   ]
 }
