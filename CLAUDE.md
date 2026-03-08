@@ -9,7 +9,7 @@ Obsidian vault for personal knowledge management and daily memos. iCloud sync en
 ## Directory Structure
 
 - `anote/01-Templete/` - Templates (`DailyMemoTemplete.md`, `Templete.md`, `構造化面接Templete.md`)
-- `anote/02-DailyMemo/` - Daily journal entries (`YYYY-MM-DD.md` format, optional `【イベント名】` suffix)
+- `anote/02-DailyNote/` - Daily journal entries (`YYYY-MM-DD.md` format, optional `【イベント名】` suffix)
 - `anote/03-input/` - Input/reference materials organized by type:
   - `book/` - Book summaries and reading notes (includes `読了リスト.md`)
   - `interview/` - Interview notes and structured interview templates

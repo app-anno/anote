@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03-input/information/20260305-trend.md",
+                "file": "03-input/information/20260307-trend.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "20260305-trend"
+              "title": "20260307-trend"
             }
           }
         ],
@@ -172,6 +172,9 @@
   "active": "bda3f90926a23712",
   "lastOpenFiles": [
     "03-input/information/20260305-trend.md",
+    "03-input/article/tsujiさん/釣り人のガチ定義",
+    "03-input/article/tsujiさん/anote.md",
+    "03-input/information/20260307-trend.md",
     "02-DailyNote/2025-08-04.md",
     "02-DailyNote/2025-07-09.md",
     "02-DailyNote/2025-05-29.md",
@@ -194,9 +197,6 @@
     "02-DailyNote/2025-07-07.md",
     "02-DailyNote/2025-07-17.md",
     "02-DailyNote/2025-07-23.md",
-    "02-DailyNote/2025-07-16.md",
-    "02-DailyNote/2025-07-22.md",
-    "02-DailyNote/2025-05-22.md",
     "02-DailyNote",
     "07-prompt",
     "01-Templete",
@@ -205,7 +205,6 @@
     "05-anno",
     "02-DailyMemo",
     "04-book",
-    "2-DailyMemo",
-    "3-interview"
+    "2-DailyMemo"
   ]
 }
