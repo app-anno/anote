@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trend Feed - 2026-03-09</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000000;
+    color: #e7e9ea;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    border-left: 1px solid #2f3336;
+    border-right: 1px solid #2f3336;
+    min-height: 100vh;
+  }
+
+  .feed-header {
+    position: sticky;
+    top: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #2f3336;
+    padding: 12px 16px;
+    z-index: 100;
+  }
+
+  .feed-header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .feed-meta {
+    font-size: 13px;
+    color: #71767b;
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-btn {
+    background: transparent;
+    color: #71767b;
+    border: 1px solid #2f3336;
+    border-radius: 9999px;
+    padding: 6px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+
+  .filter-btn:hover {
+    background: #16181c;
+    color: #e7e9ea;
+  }
+
+  .filter-btn.active {
+    background: #e7e9ea;
+    color: #000000;
+    border-color: #e7e9ea;
+  }
+
+  .card {
+    border-bottom: 1px solid #2f3336;
+    padding: 16px;
+    transition: background 0.2s;
+  }
+
+  .card:hover {
+    background: #080808;
+  }
+
+  .card[data-stars="3"] {
+    border-left: 3px solid #ffd700;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .source-badge {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    color: #ffffff;
+  }
+
+  .source-badge.hatena { background: #00a4de; }
+  .source-badge.hn { background: #ff6600; }
+  .source-badge.reddit-tech { background: #ff4500; }
+  .source-badge.reddit-fitness { background: #ff4500; }
+  .source-badge.paleo { background: #4caf50; }
+  .source-badge.pubmed { background: #326599; }
+  .source-badge.claude-code { background: #d97706; }
+
+  .stars {
+    color: #ffd700;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .metric {
+    color: #71767b;
+    font-size: 13px;
+    margin-left: auto;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .card-title a {
+    color: #e7e9ea;
+    text-decoration: none;
+  }
+
+  .card-title a:hover {
+    text-decoration: underline;
+  }
+
+  .card-body {
+    position: relative;
+  }
+
+  .card-text {
+    font-size: 14px;
+    color: #71767b;
+    line-height: 1.6;
+    overflow: hidden;
+  }
+
+  .card-text.collapsed {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+
+  .expand-btn {
+    background: none;
+    border: none;
+    color: #1d9bf0;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 4px 0;
+    margin-top: 4px;
+  }
+
+  .expand-btn:hover {
+    text-decoration: underline;
+  }
+
+  .card-footer {
+    margin-top: 8px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .category-tag {
+    font-size: 12px;
+    color: #1d9bf0;
+    background: rgba(29, 155, 240, 0.1);
+    padding: 2px 10px;
+    border-radius: 9999px;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 48px 16px;
+    color: #71767b;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      border-left: none;
+      border-right: none;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="feed-header">
+    <h1>Trend Feed</h1>
+    <div class="feed-meta">2026-03-09 / 198 articles</div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="3">★★★</button>
+      <button class="filter-btn" data-filter="2">★★</button>
+      <button class="filter-btn" data-filter="1">★</button>
+      <button class="filter-btn" data-filter="0">Other</button>
+    </div>
+  </header>
+  <main id="feed">
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">997 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/programming/comments/1rnj9kn/why_developers_using_ai_are_working_longer_hours/" target="_blank" rel="noopener">AI使う開発者がなぜ長時間労働になるのか</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; programming に移動する r/programming • Inner-Chemistry8971 Why developers using AI are working longer hours scientificamerican.com 開く I find this interesting. The articles states that, &quot;AI tools don’t automatically shorten the workday. In some workplaces, studies suggest, AI has intensified pressure to move faster than ever.&quot; 続きを読む 共有</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">912 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://type.jp/et/feature/30605/" target="_blank" rel="noopener">南場智子「ますます&quot;速さ&quot;が命題に」DeNA AI Day2026全文書き起こし</a></h2>
+      <div class="card-body">
+        <p class="card-text">DeNA南場智子氏による2026年3月の最新講演。生産性20倍の裏にある「中途半端な専門性の淘汰」と無慈悲な現実。新概念「エンバイロメント・エンジニアリング」やフィジカルAIでの日本の勝機、AIに仕事を発注される時代の“人間の尊厳”まで。激変する2026年の生存戦略を語り尽くした全文公開</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">ビジネス戦略</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">742 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1rofomq/anthropics_ethical_stand_could_be_paying_off/" target="_blank" rel="noopener">Anthropicの倫理的姿勢が報われつつある</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; technology に移動する r/technology • bllshrfv Anthropic’s Ethical Stand Could Be Paying Off theatlantic.com 開く 共有</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">ビジネス戦略</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">510 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://speakerdeck.com/orgachem/guidelines-for-requirements-definition-specification-writing-design-and-verification" target="_blank" rel="noopener">要求定義・仕様記述・設計・検証の手引き</a></h2>
+      <div class="card-body">
+        <p class="card-text">要求定義・仕様記述・設計・検証の手引き - 理論から学ぶ明確で統一された成果物定義 - Speaker Deck Upgrade to Pro — share decks privately, control downloads, hide ads and more … Speaker Deck 要求定義・仕様記述・設計・検証の手引き - 理論から学ぶ明確で統一された成果物定義 Search Sponsored · Ship Features Fearlessly Turn features on and off without deploys. Used by thousands of Ruby developers. → Kuniwak PRO February 10, 2026 Resources Programming 22 12k 要求定義・仕様記述・設計・検証の手引き - 理論から学ぶ明確で統一された成果物定義 Kuniwak PRO February 10, 2026 Tweet Share Resources ソフトウェア要求と仕様: 実践,原理,偏見の辞典 https://amzn.asia/d/00BmDRVt スライド内の要求の考え方の参考文献です。 オブジェクト指向入門 第2版 原則・コンセプト https://www.shoeisha.co.jp/book/detail/9784798111117 スライド内の契約による設計（DbC）の出典です。 トップエスイー実践講座 第6巻 並行システムの検証と実装 形式手法CSPに基づく高信頼並行システム開発入門 https://www.kindaikagaku.co.jp/book_list/detail/9784764904354/ スライド内の Communicating Sequential Proc</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">UX</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="stars">★★★</span>
+        <span class="metric">448 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47301085" target="_blank" rel="noopener">Agent Safehouse - ローカルエージェント向けmacOSネイティブサンドボックス</a></h2>
+      <div class="card-body">
+        <p class="card-text">Agent Safehouse – macOS-native sandboxing for local agents | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Agent Safehouse – macOS-native sandboxing for local agents ( agent-safehouse.dev ) 624 points by atombender 15 hours ago | hide | past | favorite | 150 comments help e1g 15 hours ago | next [–] Creator here - didn&#x27;t expect this to go public so soon. A few notes: 1. I built this because I like my agents to be local. Not in a container, not in a remote server, but running on my finely-tuned machine. This helps me run all agents on full-auto, in peace. 2. Yes, it&#x27;s just a policy-generator for sandbox-exec. IMO, that&#x27;s the best part about the project - no dependencies, no fancy tech, no virtualization. But I did put in many hours to identify the minimum</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">446 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://qiita.com/Hiru-ge/items/262e0645fbfb024ecd4b" target="_blank" rel="noopener">できるだけ無料でサービスを運用するための個人開発オススメデプロイ先</a></h2>
+      <div class="card-body">
+        <p class="card-text">@ Hiru-ge できるだけ無料でサービスを運用するための個人開発オススメデプロイ先 Paas 個人開発 無料利用枠 197 最終更新日 2026年03月08日 投稿日 2026年03月05日 はじめに こんにちは、ひるげです。 個人開発でWebアプリを作ったとき、「どこにデプロイすればいいんだろう？」と悩んだ経験、ありませんか？ AWSやGCPは高機能だけどコストが怖い。かといって無料のサービスは制限が気になる... この記事では、個人開発で使えるおすすめのデプロイ先をカテゴリ別に紹介します。実際に僕が開発中のアプリで採用した構成も公開するので、参考にしてみてください。 この記事の対象 本記事は、 フロントエンドとバックエンドを分離する構成 を前提としています。具体的には、React等のSPAをフロントに、Go/Node.js等のAPIサーバーをバックに置くような構成です。 以下のケースでは、ここまでの構成は不要です。 静的サイトのみ （ブログ、ポートフォリオ等） → GitHub PagesやCloudflare Pagesだけで十分 フルスタックフレームワーク （Rails、Next.js、Laravel等） → RenderやRailway1つにまとめてデプロイする方がシンプル 「ちょっと本格的なWebアプリを作りたい」という方向けの記事になります。 選定基準 個人開発のデプロイ先を選ぶとき、僕が重視しているのは以下の3点です。 無料枠の範囲で収まるか ：ベータ版やMVPの段階でコストをかけたくない セットアップが簡単か ：開発に集中したいので、インフラ構築に時間をかけたくない スケールの選択肢があるか ：ユーザーが増えたときに有料プランへ移行しやすいか 特に1つ目が重要です。個人開発は「まず出してみる」フェーズが長いので、 無料で本番環境を維持できること が最優</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">ビジネス戦略</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">340 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/nuits_jp/articles/2026-03-08-reviewing-ai-code" target="_blank" rel="noopener">まだAIコードをレビューするか、しないかで言い争ってるの？</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI engineering codereview idea AIが生成したコードをレビューするべきかどうか、という議論は定期的に起こります。 3カ月以上その問題に悩んでいる人は、たぶんとっくに何らかの結論に達していると思います。 2026.03.08 改修メモ レビュー0に拘り過ぎているように読めたので、表現を全体的に柔らかくしました。 つまりナーフして少し火力を下げました。 私の結論 品質を維持したままコードレビューを減らせるよう、開発プロセス全体を改善する必要がある これは、すでにレビューしなくて済むようになったとか、レビューを0にしなくてはならないという話ではありません。品質を保ったまま、大幅にコードレビューを削減し続けなければならないという話です。 これは、少なくとも次の3つの確定的な事実に基づいています。 今後コードレビュワーは育てられない AIはレビュワーを物量でひき殺す 今のままのレビューを人が続ける組織は、コードレビューを軽量化した組織に淘汰される そのために必要なことも、いくつかわかっています。 高品質なコードを生成できるコンテキストを開発・維持する開発プロセス 高品質なコードを生成できるハーネス コードより高いレイヤーの評価基準で品質を評価・保証するプロセス 今後コードレビュワーは育てられない コードレビュワーの育成方法として、コードを書いて経験を積む以外の道は、いまだ確立されていません。 現実的には、いまのレビュワーと同程度にコードを書く時間を確保することは、今後ほぼ不可能です。 したがって、現在のレビュワーと同程度のコードレビュー能力を持つ人材を今後育てるのは難しいはずです。 AIはレビュワーを物量でひき殺す GPT-5.4にもOpus 4.6にも、高速モードがあります。現在時点でさえ生成AIの速度は限界ではなく、今後さらに高速化することは確実です</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">337 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://newspicks.com/news/16173894/body/" target="_blank" rel="noopener">【保存版】Claude課金すべき？Cowork・Skills・Claude Codeの使い方全解説</a></h2>
+      <div class="card-body">
+        <p class="card-text">Claude Code活用の包括ガイド</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">296 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://note.com/joho_no_todai/n/n0ee446fdff40" target="_blank" rel="noopener">AIがオープンソースの「鍵」を壊す日――chardet騒動の本質</a></h2>
+      <div class="card-body">
+        <p class="card-text">AIがオープンソースの「鍵」を壊す日――chardet騒動の本質 79 情報の灯台 2026年3月8日 18:00 ¥200〜 月間1億3,000万ダウンロードを超えるPythonライブラリが、AIで丸ごと書き換えられた。ライセンスごと。オープンソースの根幹を揺るがす問いが、いま目の前にある。 5日間で書き換えられた12年 Pythonの文字エンコーディング検出ライブラリchardetに、激震が走っている。 メンテナーのダン・ブランチャードが3月4日（現地時間）、バージョン7.0をリリースした。これだけなら日常的なアップデートだ。だが中身は、日常とはほど遠かった。AnthropicのClaude Codeを使い、コードベースを一から書き直したうえで、ライセンスをLGPL（準コピーレフト）からMIT（寛容型）に変更したのだ。 chardetはPythonエコシステムの「インフラ」と呼べる存在だ。requestsをはじめとする無数のプロジェクトが依存し、PyPIでの月間ダウンロード数は 約1億3,800万回 に達する。その根幹が、たった5日で塗り替えられた。 しかもブランチャードは、書き換えの成果を数字で示している。検出速度は旧版の 48倍 、精度は98.2%に向上。Python標準ライブラリへの採用を阻んでいたライセンスの壁も、同時に取り除いた。正直に言えば、技術的な成果としては見事だ。 だが、問題はそこではない。 原作者の異議 リリースの翌日、GitHubのIssue #327に、ある人物が現れた。 chardetの原作者を名乗るマーク・ピルグリムだ。「Dive Into Python」の著者として知られる彼は、このライセンス変更はLGPL違反だと主張した。LGPLの下では、改変したコードも同じライセンスで公開しなければならない。AIで書き直したからといって、その義務は消え</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">288 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/dinii/articles/28c8fcd041837d" target="_blank" rel="noopener">「全エンジニアがClaude Codeを100%活用する」を目指してダッシュボードを作った</a></h2>
+      <div class="card-body">
+        <p class="card-text">Dinii Tech Blog Publicationへの投稿 AI チーム開発 dashboard 生産性向上 Claude Code tech はじめに 「全エンジニアが Claude Code を 100% 活用する」 これは、ダイニーの今期の目標のひとつです。 正直、最初に思ったのは「何をもって 100% なんだ？」です。 手がかりを探るために、まずチーム全員にアンケートを取りました。 結果はバラバラで、「 かなり活用できている 」という人もいれば、「 スキルやサブエージェントはほとんど使えていない 」という人もいます。 中でも多かったのが、「他の人がどう活用しているのか分からない」という声でした。 実際、有志がスキルやサブエージェントを作っても、その存在自体を知らないメンバーがいます。知っていても中身が分からないから使えない。結局、作った本人しか使わないまま埋もれていく。そんな状態です。 これでは「活用度」以前の問題。 そもそも何が使えるのか、誰がどう使っているのかが見えなければ、活用度を定義できません。 そこで作ったのが、エンジニア全員の Claude Code 活用状況を可視化するダッシュボードです。 作ったもの Claude Codeプラグイン : 利用データを収集してBigQueryに送信するフック BigQueryテーブル : データの蓄積先 ダッシュボード : 蓄積したデータを可視化するWebアプリ この構成を、Claude Codeを使って1日ちょっとで作りました。 ダッシュボードでは、主にこんなことが見えるようになっています。 ユーザー別ランキング : 誰がどのくらいスキル・サブエージェントを使っているか ツール分析 : スキル、サブエージェント、MCP、スラッシュコマンドの4カテゴリの横断的な利用状況 トークンコスト分析 : モデル別のトークン使</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">227 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/AppBusiness/comments/1ro3n7c/i_built_65_boring_apps_none_of_them_went_viral/" target="_blank" rel="noopener">65個の「地味な」アプリを作った。バイラルは0。でも合計月$4,200</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; AppBusiness に移動する r/AppBusiness • Less_Courage_3545 I built 65 &quot;boring&quot; apps. None of them went viral. (But together they make ~$4,200/mo) veryone on this sub is trying to build the next $1M ARR SaaS. I realized pretty early on that I didn&#x27;t have the marketing budget or the patience for that. So, I took the exact opposite approach. I built a portfolio of tiny, boring, highly specific utility apps. If you look at them individually, it’s almost embarrassing. Most of them only make between $10 and $120 a month. But here is the math: an average of $65/mo × 65 apps = a ~$4,200/month side income. When I tell people I ha</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">アプリグロース</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">212 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/76hata/articles/d6d9de62d001a8" target="_blank" rel="noopener">「.env見るな」は通じない－AI時代のシークレット管理術</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI Security DevOps llm Claude Code tech はじめに Claude Codeをはじめとした AIコーディングエージェントが普及するなか、こんな疑問を持ったことはないでしょうか。 「 .env は読むな」とシステムプロンプトに書いてある。でも、プロンプトインジェクションで言い方を変えれば読まれる、という話を聞いた。じゃあどうやって管理すればいいの？ この記事では、その疑問に正面から答えます。結論から言えば── 「禁止命令で守ろうとする」設計自体を捨てることが解決策です。 問題の構造：なぜ「禁止」だけでは防げないのか AIは「禁止」を意図で判断する LLM（大規模言語モデル）は、すべての入力テキストをフラットなコンテキストとして処理します。「システム指示」と「ユーザー入力」と「外部取得コンテンツ」を区別するよう設計されていますが、表現の巧みさによってその境界が曖昧になります。 これはアーキテクチャ上の制約であり、現時点では完全に解決されていません。 実際の攻撃パターン 悪意ある外部コンテンツ ↓（WebFetch等で取得） プロンプトコンテキストに混入 ↓（インジェクションされた指示として解釈） AIエージェントが「正常な作業」として実行 ↓（cat .env など） ログ・出力・コードに漏洩 攻撃手法 検知難易度 備考 CSSで非表示にした指示文 低 Claudeが視覚的に隠された指示に気づく 「デバッグTips」として偽装 低 意図が明らかすぎる コードのprint文に自然に混入 高 正常なデバッグコードに見えるため検知されない 特に3つ目が厄介です。 print(os.environ.get(&#x27;API_KEY&#x27;)) のようなコードは、デバッグ目的として自然に見えるため、AIが異常と判断しにくい。 対策：優先度順に整理する 優先度1（根本</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="stars">★★★</span>
+        <span class="metric">202 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47300102" target="_blank" rel="noopener">リアルタイムOSINTダッシュボードを作った（15のライブグローバルフィードを取得）</a></h2>
+      <div class="card-body">
+        <p class="card-text">Show HN: I built a real-time OSINT dashboard pulling 15 live global feeds | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Show HN: I built a real-time OSINT dashboard pulling 15 live global feeds ( github.com/bigbodycobain ) 260 points by vancecookcobxin 17 hours ago | hide | past | favorite | 105 comments Sup HN, So I got tired of bouncing between Flightradar, MarineTraffic, and Twitter every time something kicked off globally, so I wrote a dashboard to aggregate it all locally. It’s called Shadowbroker. I’ll admit I leaned way too hard into the &quot;movie hacker&quot; aesthetic for the UI, but the actual pipeline underneath is real. It pulls commercial/military ADS-B, the AIS WebSocket stream (about 25,000+ ships), N2YO satellite telemetry, and GDELT conflict da</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">技術全般</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">189 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1rnxm5c/i_removed_63_of_my_claude_code_setup_and_it_got/" target="_blank" rel="noopener">Claude Codeの設定63%削除したら10倍速くなった。全部入れるのやめろ</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; ClaudeCode に移動する r/ClaudeCode • StandardKangaroo369 I removed 63% of my Claude Code setup and it got 10x faster. Stop installing everything So im a non-coder who got really into AI tools over the past year. I use claude code mainly for vibe coding python/typescript stuff and scientific research/writing. You know how it goes - you see some cool MCP server on twitter, a new skill pack on reddit, someone recommends an agent bundle and before you know it youve got this massive bloated setup My setup had gotten ridiculous: 20 MCP servers, 80+ skills, 86 slash commands, 25+ agents, 10 plugins, 7 hooks. I didnt even know</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="stars">★★★</span>
+        <span class="metric">184 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47300747" target="_blank" rel="noopener">エージェント時代にリテラルプログラミングを再考すべき</a></h2>
+      <div class="card-body">
+        <p class="card-text">We should revisit literate programming in the agent era | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login We should revisit literate programming in the agent era ( silly.business ) 255 points by horseradish 16 hours ago | hide | past | favorite | 172 comments help palata 12 hours ago | next [–] I am not convinced. - Natural languages are ambiguous. That&#x27;s the reason why we created programming languages. So the documentation around the code is generally ambiguous as well. Worse: it&#x27;s not being executed, so it can get out of date (sometimes in subtle ways). - LLMs are trained on tons of source code, which is arguably a smaller space than natural languages. My experience is that LLMs are really good at e.g. translating code between two programming languages. B</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">182 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1rokz8e/rate_limitsss/" target="_blank" rel="noopener">レート制限！！</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; ClaudeCode に移動する r/ClaudeCode • Extra-Record7881 Rate limitsss!! この動画の読み込み中に問題が発生しました。 アプリで表示する 共有</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">177 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/mgdx_blog/articles/8f7994ad84151d" target="_blank" rel="noopener">コードレビューにClaude Code subagentsを導入したら、レビューレベルが改善した話</a></h2>
+      <div class="card-body">
+        <p class="card-text">MG-DX Tech Blog Publicationへの投稿 AI codereview Claude Anthropic tech はじめに こんにちは！ みなさんは、コードレビューの負担に悩んでいませんか？マイクロサービスが増えるにつれて、レビュー対象のコードも増え続け、セキュリティやパフォーマンス、テストカバレッジなど、チェックすべき観点も多岐にわたるようになりました。レビュー待ち時間が開発速度のボトルネックになってしまう…そんな経験、ありませんか？ 私たちも同じ課題を抱えていました。AIレビューを導入していたものの、求める水準に達していなかったのです。そこで、 Claude Code subagents を導入し、専門特化したエージェントによるレビュー体制に刷新したところ、驚くほどレビューの質が向上しました。 この記事では、コードレビューのAI化について、その取り組みを共有します。 この記事で分かること 従来のAIレビューの限界と課題 Claude Code subagentsの設計と実装 GitHub Review APIとの統合方法 導入による効果と今後の改善点 対象読者 AI活用によるコードレビュー自動化に興味のある方 Claude Codeの活用事例を知りたい方 レビュー品質と速度の両立に悩んでいる開発チーム 背景と課題 既存のAIレビュー体制の限界 私たちはClaude Codeを使ったAIレビューを既に導入していました。レビュー観点を定義した CLAUDE_PR_REVIEW_GUIDE.md （約100行）で、以下の観点をカバーしていました： # 従来の構成 CLAUDE_PR_REVIEW_GUIDE.md（約100行） ├── 機能性 ├── 可読性と保守性 ├── セキュリティ ├── パフォーマンス ├── テストとドキュメント └── 設計</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">161 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/komlock_lab/articles/openai-symphony" target="_blank" rel="noopener">Symphony - OpenAIが発表したチケット駆動AI開発ツールについて</a></h2>
+      <div class="card-body">
+        <p class="card-text">Komlock lab Publicationへの投稿 AI Elixir automation OpenAI Codex tech こんにちは！ブロックチェーンエンジニアの山口夏生です。 ブロックチェーン×AI Agentで自律経済圏を創る開発組織Komlock labでCTOをしています。 コーディングエージェントを複数並列で自律的に回すマルチエージェント開発が、ここ数ヶ月でエンジニアの間に急速に広まっていますが、まだそれぞれ試行錯誤しているフェーズで、最適解はない認識です。 OpenAIが最近発表したSymphonyに注目しています。 https://github.com/openai/symphony 自分もClaudeCodeとOpenClawのオーケストレーションを日常的に考えていて、複数エージェントのタスクやセッション管理に苦労していたので、とても気になりました。中身を読んでいきます。 これまでの試行錯誤 — 「エージェントチームの管理」は個人技だった Ralph Loop — エージェントの基本的なフィードバックループ マルチエージェント開発の文脈で「Ralph Loop」と呼ばれるパターンがあります。 Ralph Loopとは、AIコーディングエージェントがソフトウェア開発を自律的に進めるための反復プロセスで、AIが「次にやるべきタスクを計画（Plan）→コードを実装（Implement）→テストやCIで検証（Test）→結果をレビューして問題を見つける（Review）→修正や次タスクを生成して再度計画に戻る（Iterate）」というループを継続的に回す仕組みを指します。 つまり、人間の開発者が普段行っている「考える→書く→試す→直す→次を決める」という思考サイクルをAIに実行させる設計パターンであり、Claude CodeやCodexなどのAIエージェン</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">157 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://qiita.com/NF0000/items/66510f959b1c22f011a7" target="_blank" rel="noopener">Claude Codeにバックドア入りOSSを渡したら、何の疑いもなく実装した</a></h2>
+      <div class="card-body">
+        <p class="card-text">@ NF0000 Claude Codeにバックドア入りOSSを渡したら、何の疑いもなく実装した Security AI Claude ClaudeCode VibeCoding 75 最終更新日 2026年03月08日 投稿日 2026年03月08日 はじめに バックドアが仕込まれたOSSをClaude Codeに渡して「機能追加して」と頼んだら、何の疑いもなく、バックドアごと踏襲して実装しました。 前回の記事 では、プロンプトインジェクションによる .env 漏洩を検証しました。今回は もっと現実的なシナリオ で、GitHubでOSSを見つけてcloneし、AIで開発を始めるケースです。 「バックドアを仕込め」と直接指示すれば、Claude Codeは完璧に拒否します。しかし、cloneしたプロジェクトに悪意あるコードが紛れていた場合、それは「既存の実装」として信頼され、そのまま新しいコードに引き継がれます。 Vibe Codingでプログラミングを始めた人も、経験豊富なエンジニアも、OSSのコード全体を把握するのは困難です。全てAIに任せて、コードレビューもせずにそのまま使う、そのリスクを検証しました。 「ベストプラクティス」と知っただけで、中身を確認せずいろんな機能を追加している人も要注意です。 注意 : 本記事は防御目的の検証です。すべてダミーの認証情報・ダミーのURLを使用し、自分の管理する環境でのみ実施しています。 背景：なぜこの検証をするのか AIコーディングツールのセキュリティリスクは、すでに多くの研究で実証されています。 2025年12月、Cursor・GitHub Copilot・Windsurf等のAI IDEで30以上の脆弱性が発見され「IDEsaster」と名付けられました（ The Hacker News ）。また、設定ファイルに悪意ある指示を</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="stars">★★★</span>
+        <span class="metric">137 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://speakerdeck.com/kenichiota0711/claudecodedemaketanoke-ti-wojie-jue-suru" target="_blank" rel="noopener">ClaudeCodeでマーケターの課題を解決する</a></h2>
+      <div class="card-body">
+        <p class="card-text">ClaudeCodeでマーケターの課題を解決する - Speaker Deck Upgrade to Pro — share decks privately, control downloads, hide ads and more … Speaker Deck ClaudeCodeでマーケターの課題を解決する Search Sponsored · Ship Features Fearlessly Turn features on and off without deploys. Used by thousands of Ruby developers. → 太田賢一 March 07, 2026 Design 4 5.3k ClaudeCodeでマーケターの課題を解決する Claude Codeを活用してマーケターの方の課題を解決するエピソードをまとめました。 事業会社のデザイナーやマーケターの方に読んでいただきたいです。 ＜主な内容＞ ・自社課題、AI技術、構想の接続 ・AIツール選定 ・3つの構造について ・SKILLの活用と拡充サイクル 引き続き、誰もがデザインできる環境と仕組みをつくることで、 事業を加速させていきたいと思います。 太田賢一 March 07, 2026 Tweet Share More Decks by 太田賢一 See All by 太田賢一 AIスライドデザインを生成する仕組みを社内共有する kenichiota0711 6 4.8k AIでデザインをつくる：基礎編 kenichiota0711 3 2.7k タイミーでフィールドワークしたら、サービスデザインが始まった［Spectrum Tokyo］ kenichiota0711 2 520 タイミーでフィールドワークしたら、サービスデザインが始まった kenichiota0711 3</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">アプリグロース</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="stars">★★★</span>
+        <span class="metric">110 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/bodyweightfitness/comments/1rntcro/comprehensive_dip_guide/" target="_blank" rel="noopener">包括的ディップガイド</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; bodyweightfitness に移動する r/bodyweightfitness • Malk25 Comprehensive Dip Guide Dips are one of the foundational upper body movements in calisthenics, right behind pull ups and push ups. Despite this, I still see a lot of confusion regarding their implementation. Some treat it as an after thought accessory movement. Others run into issues with sternum pain or shoulder discomfort and have to abandon it. It also gets mixed up with pike push ups as a vertical pressing movement despite their large differences. In this post I will cover the benefits, sequencing, implementation, technique considerations and the relation of</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">フィットネス・運動科学</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">94 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1ro61pg/losing_my_ability_to_code_due_to_ai/" target="_blank" rel="noopener">AIのせいでコーディング能力を失いつつある</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; ClaudeCode に移動する r/ClaudeCode • Im_Ritter Losing my ability to code due to AI Hey everyone, I don&#x27;t see it come up a lot, but even after a few years of coding, using AI on a regular basis for over a year made me feel a lot more insecure about my coding abilities. I feel like my skills are really deteriorating, while simultaneously feeling like there might be no need to know how to code at all. wdyt? EDIT: I gotta add a couple of things. I think that inherently, not understanding the syntax is a problem in itself. I might be missing something, but a lot of the time, to check the ai hasn&#x27;t made a mess, or created su</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="stars">★★★</span>
+        <span class="metric">87 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47293195" target="_blank" rel="noopener">プッシュとプル：3つのリアクティビティアルゴリズム</a></h2>
+      <div class="card-body">
+        <p class="card-text">Pushing and Pulling: Three reactivity algorithms | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Pushing and Pulling: Three reactivity algorithms ( jonathan-frere.com ) 104 points by frogulis 17 hours ago | hide | past | favorite | 18 comments help crabmusket 11 hours ago | next [–] Something I rarely see addressed in articles about reactivity systems is how the desired syntax/developer experience affects the algorithms. For example, I think all the algorithms discussed in this article require knowing the graph topology up front. Even dynamic dependencies need to be known ahead of time, unless I&#x27;m misreading. However, take Vue&#x27;s reactivity for example. Here&#x27;s a simple input and output: const input = ref(1); const output = computed(() =&gt; ref.value + 1); Wi</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">RN/Expo</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="stars">★★★</span>
+        <span class="metric">86 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47297167" target="_blank" rel="noopener">Beagle - AST木を保存するソースコード管理システム</a></h2>
+      <div class="card-body">
+        <p class="card-text">Beagle, a source code management system that stores AST trees | Hacker News Hacker News new | past | comments | ask | show | jobs | submit login Beagle, a source code management system that stores AST trees ( github.com/gritzko ) 94 points by strogonoff 22 hours ago | hide | past | favorite | 46 comments help nzoschke 18 hours ago | next [–] In https://replicated.wiki/blog/partII this part is very interesting to me: &gt; Want to keep LLM .md files in a separate overlay, only make them visible on request? Also easy. CRDT gives the freedom in splitting and joining along all the axes. I now have a bunch of layers of text / markdown: system prompts, AGENTS.md, SKILL.md, plus user tweaks or full out replacements to these on every repo or subproject. Then we want to do things like update the &quot;root&quot;</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">72 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1ro4zk5/crit_a_terminal_review_tool_for_claude_code_plans/" target="_blank" rel="noopener">crit -- Claude Codeのプラン・ドキュメント用ターミナルレビューツール</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; ClaudeCode に移動する r/ClaudeCode • RoyalAlpaca crit — a terminal review tool for Claude Code plans and documents この動画の読み込み中に問題が発生しました。 アプリで表示する I built a TUI that lets you review markdown documents inline and leave comments, like a code review but for plans and docs. Claude Code reads your comments and edits the document to address them. The problem: When Claude writes a plan or long document, your options are to read it in a text editor and then type out what you want changed, or just approve it and hope for the best. Neither is great. What crit does: Opens a syntax-highlighted markdown viewer where you scroll throu</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">52 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1rnrdnc/i_brought_swiftuis_syntax_to_react_native_20/" target="_blank" rel="noopener">SwiftUIの構文をReact Nativeに持ち込んだ。20プリミティブ、60+チェーンモディファイア、JSXゼロ</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; reactnative に移動する r/reactnative • Weary_Protection_203 I brought SwiftUI&#x27;s syntax to React Native. 20 primitives, 60+ chainable modifiers, zero JSX - and about 70% less UI code I love SwiftUI&#x27;s readability. I don&#x27;t like, primarily as an iOS Engineer, that React Native doesn&#x27;t have it. So I built a DSL that gives you chainable, composable, tags-free, theme-aware UI - that works on both platforms, iOS and Android. It&#x27;s a TypeScript framework that replaces JSX and StyleSheet boilerplate with flat function calls and chainable modifiers. You write Text(&#x27;Hello&#x27;).font(&#x27;title&#x27;).bold() instead of nesting Views inside Views</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">RN/Expo</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="stars">★★★</span>
+        <span class="metric">52 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/nutrition/comments/1rogfjg/was_america_a_healthier_nation_when_people_ate/" target="_blank" rel="noopener">アメリカは家庭料理で運動もしてたが喫煙・飲酒も多かった時代の方が健康だったか？</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; nutrition に移動する r/nutrition • BulkyText9344 Was America a healthier nation when people ate more home cooked, whole foods and got more exercise, but smoked and drank more? Or is America a healthier nation today, when people are more obese, more sedentary, and take more pharmaceuticals and consume much more processed foods, but drink and smoke less? 続きを読む 共有</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="stars">★★★</span>
+        <span class="metric">52 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/weightroom/comments/1rj2z10/book_review_general_gainz_by_gzcl/" target="_blank" rel="noopener">書評：General Gainz by GZCL</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; weightroom に移動する r/weightroom • BetterThanT-1 [Book Review] General Gainz by GZCL You can get the book from here . A detailed announcement post can be found in r/gzcl here . For those who don’t know, u/gzcl published General Gainz a few days ago. GZCL has been a key contributor to this sub through the years, and many people here have run his programs (GZCLP, Jacked and Tan 2.0, The Rippler, and others) with great success. The General Gainz framework has been around for a few years already. It was announced on r/gzcl and as far as I know, it has been the main training methodology GZCL has employed in his training s</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">フィットネス・運動科学</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="stars">★★★</span>
+        <span class="metric">29 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/bodyweightfitness/comments/1rnl2v3/bulgarian_split_squats_core_activation_and_balance/" target="_blank" rel="noopener">ブルガリアンスプリットスクワット、体幹活性化とバランス</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; bodyweightfitness に移動する r/bodyweightfitness • HopperEstrossa Bulgarian split squats, core activation and balance I recently started doing Bulgarian split squats, and yesterday was my third session. I struggle a lot with balance during the exercise, so I hold onto a rod for support while I hold the dumbell in another. I was wondering how I should activate my core while doing them. Is it simply a matter of bracing? Yesterday I also increased the weight to challenge myself more, but I still had to hold the rod to stay balanced. Should I reduce the weight and focus on improving my balance first before increasing the l</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">フィットネス・運動科学</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="stars">★★★</span>
+        <span class="metric">12 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1ro9ser/react_native_aiagentfriendly_template/" target="_blank" rel="noopener">React Native AIエージェント対応テンプレート</a></h2>
+      <div class="card-body">
+        <p class="card-text">:first-child]:h-full [&amp;&gt;:first-child]:w-full [&amp;&gt;:first-child]:mb-0 [&amp;&gt;:first-child]:rounded-[inherit] h-full w-full [&amp;&gt;:first-child]:overflow-hidden [&amp;&gt;:first-child]:max-h-full&quot;&gt; reactnative に移動する r/reactnative • Famous-Charity-5866 React Native AI-Agent-Friendly template I have created a React Native template that is ready for AI-Agents and AI IDEs to start your side vibe coded project quickly After dealing with AI coding agents lately I have discovered that when you put the AI agent in a good codebase, it will generate a good code This template provide you with all the boilerplate you will need to quickly start your new project All code is documented so your AI Agent can follow the docs when it generates new code Compatible with CC, Cursor, Copilot and more It also includes CC Skills and</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">RN/Expo</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/blog-post_08.html" target="_blank" rel="noopener">今週の小ネタ：明るいところで寝てると心臓病に？タウリンは本当に健康にいいのか？</a></h2>
+      <div class="card-body">
+        <p class="card-text">今週の小ネタ：明るいところで寝てると心臓病に？タウリンは本当に健康にいいのか？ | パレオな男 ページ お仕事のご依頼について パレオダイエットまとめ 瞑想まとめ このブログを検索 今週の小ネタ：明るいところで寝てると心臓病に？タウリンは本当に健康にいいのか？ 3/08/2026 A + A - https://yuchrszk.blogspot.com/2026/03/blog-post_08.html ひとつのエントリにするほどでもないけど、なんとなく 興味深い論文を紹介するコーナー です。 参加者の手首に光センサーを1週間装着してもらう。これにより、いつも寝る時にどれぐらいの光を浴びているかを測定 英国の医療記録から、心臓や血管まわりの病気の発症データを取得 みんなを約9.5年ほど追跡して、夜間の光と病気の関係を調べる ついでに、年齢・性別や運動習慣、喫煙・飲酒の有無だけでなく、睡眠時間・睡眠の質、シフトワーク、クロノタイプ（朝型・夜型）、遺伝的リスクスコアで統計を調整する 参加者の数がすごいだけでなく、調整のレベルもヤバいですね。研究チームの本気がうかがえる内容っすな。 でもって、夜間の光の量を4段階に分けて分析したところ、もっとも光を浴びていたグループ（上位10%）は、以下のリスク増加が見られたんだそうな。 冠動脈疾患： +23% 心筋梗塞： +42% 心不全： +45% 心房細動： +28% 脳卒中： +28% この数値だけでも「やはり夜間の光は怖い！」って感じですが、さらにここで大事なのは用量反応関係が出ていることでしょう。要するに、夜間に浴びる光の量が増えるほど、病気になるリスクも段階的に上がるってことでして、かなりデータとして説得力がありますな。 となると、当然「睡眠が短い人が光を浴びてるだけでは？」って疑問もわくんですけども、この研究では睡眠時間・睡眠の</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">睡眠・リカバリー</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/blog-post_04.html" target="_blank" rel="noopener">腹筋で「腹だけ痩せる」は本当に可能なのか？を掘り下げた研究の結果を見てみよう</a></h2>
+      <div class="card-body">
+        <p class="card-text">腹筋で「腹だけ痩せる」は本当に可能なのか？を掘り下げた研究の結果を見てみよう | パレオな男 ページ お仕事のご依頼について パレオダイエットまとめ 瞑想まとめ このブログを検索 腹筋で「腹だけ痩せる」は本当に可能なのか？を掘り下げた研究の結果を見てみよう 3/04/2026 A + A - https://yuchrszk.blogspot.com/2026/03/blog-post_04.html 「腹の脂肪を落としたいなら腹筋だ！」ってアドバイスはよく耳にするところで、引き締まった腹を作るために日夜シットアップに励んでいる人もおりましょう。 が、少し詳しい方であれば、「腹だけ痩せるなんて無理！脂肪は全身から落ちるんだから、腹筋は腹筋でしかない！」って意見のほうが運動科学の世界では優勢なのをご存じでしょう。事実、いままで「部分痩せ」が確認された例は非常に少なく、いまでは「腹の脂肪を削るために腹筋しましょう」と指導するようなトレーナーさんも、ほぼいなくなったはず（多分）。 ところが、新たにノルウェーの研究者たちが発表した研究( R )では、「 いや、やり方によっては、腹の脂肪だけちょっと落ちるかもよ？ 」という主張をしてまして、これがちょっと興味深かったんで内容を整理してみましょう。 まずは用語のチェックからしておくと、この研究で言う「部分痩せ（spot reduction）」ってのは、 「特定の部位の筋肉を使う運動によって、その部位の脂肪が他より多く減る現象 」を意味しております。 たとえば「腹筋をたくさんやった人は、全身の体脂肪が同じぐらい減ってても、腹部の脂肪だけはもっと余計に落ちる」みたいな話ですね。 ただし、上述のとおり、過去に行われた多くの研究では、一部にだけ「腕だけ細くなったっぽい」みたいな報告もあったりはしたものの、 全体としては「よくわからんけど部分痩せ</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">フィットネス・運動科学</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/6rct.html" target="_blank" rel="noopener">「甘いものを我慢すれば甘いものは欲しくなくなる」は本当か？を調べた6ヶ月RCTの話</a></h2>
+      <div class="card-body">
+        <p class="card-text">「甘いものを我慢すれば甘いものは欲しくなくなる」は本当か？を調べた6ヶ月RCTの話 | パレオな男 ページ お仕事のご依頼について パレオダイエットまとめ 瞑想まとめ このブログを検索 「甘いものを我慢すれば甘いものは欲しくなくなる」は本当か？を調べた6ヶ月RCTの話 3/03/2026 A + A - https://yuchrszk.blogspot.com/2026/03/6rct.html 「甘いものを断てば、そのうち甘いものが欲しくなくなる！」みたいな話は、皆さんも一度は聞いたことがあるのではないでしょうか。砂糖は依存性があるとか、甘い味に慣れるとどんどん刺激を求めるようになるとか、だから一度リセット期間を設けるべきだ、みたいなことですな。 この考え方には結構な支持がありまして、WHOや各国の公的機関も、「甘味を摂取する回数を減らせば、甘味が欲しくなくなる」といったニュアンスの提言を何度かしております。私も基本は似たような考えでして、「甘いものから身を遠ざけ続ければ、いずれは甘味への執着も自然に薄れていくはずだ！」と思ったりしておりました。 ところがどっこい、近ごろこの考え方に異議を唱えるRCT( R )が出まして、これがなかなか面白かったので、内容をチェックしておきましょう。 この研究は、健康な成人180名（平均35歳、BMI23前後）を対象にした、6か月間の並行群RCTでして、研究チームは参加者を以下の3グループに振り分けております。 低甘味群： 甘い食品がエネルギーの7%しかない食事を食べ続ける 通常甘味群： 甘い食品がエネルギーの35%を占めている食事を食べ続ける 高甘味群： 甘い食品がエネルギーの80%を占めている食事を食べ続ける ここでのポイントは、実験で使われた「甘味」が、砂糖だけではなくて、低カロリー甘味料や果物、乳製品も含まれていた点。これにより</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41790706/" target="_blank" rel="noopener">有酸素運動・マインドボディ運動がMCI高齢者の認知機能に与える効果：SR&amp;MA</a></h2>
+      <div class="card-body">
+        <p class="card-text">Full text links Cite Display options Display options Format Abstract PubMed PMID Abstract Background: Global aging has increased the prevalence of dementia, with mild cognitive impairment (MCI) representing a critical window for intervention. While exercise is recognized for mitigating cognitive decline, the comparative effectiveness of mind-body versus structured aerobic exercise remains unclear. Methods: Search sources included PubMed, Web of Science, and the Cochrane Library. Randomized controlled trials (RCTs) assessing mind-body exercise (tai chi, yoga, and dance) or structured aerobic exercise (walking and cycling) in patients with MCI aged over 50 years were included. The Mini-Mental State Examination (MMSE), Montreal Cognitive Assessment (MoCA), and Alzheimer&#x27;s Disease Assessment S</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41791366/" target="_blank" rel="noopener">高強度間欠的運動とマウスリンシング：SR&amp;MA</a></h2>
+      <div class="card-body">
+        <p class="card-text">Full text links Cite Display options Display options Format Abstract PubMed PMID Abstract Carbohydrate (CHO), caffeine (CAF), and menthol (MEN) mouth rinses are emerging ergogenic aids that may enhance sports performance without the gastrointestinal risks of ingestion. However, there is limited evidence specifically regarding their effects on high-intensity intermittent exercise (HIIE) performance. This systematic review and meta-analysis aimed to evaluate the effect of mouth rinsing on HIIE performance, specifically focusing on solutions containing CHO, CAF, and/or MEN. A comprehensive literature search was conducted using seven databases through June 2025, following the recommendations of the Preferred Reporting Items for Systematic Reviews and Meta-Analyses checklist. Twenty randomized</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41789728/" target="_blank" rel="noopener">日本における身体活動促進のための金銭的インセンティブ：ラピッドレビュー</a></h2>
+      <div class="card-body">
+        <p class="card-text">Full text links Cite Display options Display options Format Abstract PubMed PMID Abstract Financial incentives are a promising strategy to promote physical activity. While randomized trials in Western countries have demonstrated short-term effectiveness, evidence from non-Western settings remains limited. This rapid review synthesized evidence from Japan on financial incentive-based interventions considering both individual-level behavioral responses and their use as policy tools implemented by administrative organizations. A systematic search of 4 databases (CiNii Articles, PubMed, Google Scholar, and Ichushi Web) was conducted between May and June 2025, covering English and Japanese studies. Intervention characteristics were described using the TIDieR checklist and step count changes wer</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41782988/" target="_blank" rel="noopener">食事と運動の併用が成人の体組成に与える相乗効果：SR&amp;MA</a></h2>
+      <div class="card-body">
+        <p class="card-text">Full text links Cite Display options Display options Format Abstract PubMed PMID Abstract Introduction: Obesity and poor body composition are major contributors to chronic disease risk inadults. This review aimed to compare the effectiveness of exercise-only, diet-only, and combined interventions in improving body composition outcomes. Methods: A systematic review and meta-analysis were conducted based on Judies published between 2016 and 2024 from Scopus, Web of Science, and ScienceDirect. Forty-six Judies involving 3,429 adults across five continents met inclusion criteria. Quality appraisal followed PRISMA and MMAT guidelines. A meta-analysis using RevMan 5.4 included six eligible Judies. Results: Combined interventions resulted in the most consistent improvements in body mass index (BM</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41773190/" target="_blank" rel="noopener">プロバイオティクス補給がアスリートの免疫・炎症マーカーに与える効果</a></h2>
+      <div class="card-body">
+        <p class="card-text">Full text links Cite Display options Display options Format Abstract PubMed PMID Abstract Background: Intensive training and competition can compromise athletes&#x27; immune function and elevate inflammatory responses. Although probiotics are widely studied as a nutritional intervention, existing meta-analyses have reported inconsistent findings regarding their efficacy. This umbrella review and re-analysis aimed to synthesize and evaluate the available evidence on the effects of probiotic supplementation on specific immune and inflammatory markers in athletes. Methods: We systematically searched PubMed, Cochrane Library, Web of Science, EMbase, and Scopus for meta-analyses published up to December 1, 2025, and supplemented these with recent randomised controlled trials (RCTs) (up to December 1</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41783703/" target="_blank" rel="noopener">肥満者における運動の睡眠の質・BMIへの効果：ネットワークMA&amp;用量反応分析</a></h2>
+      <div class="card-body">
+        <p class="card-text">Full text links Cite Display options Display options Format Abstract PubMed PMID Abstract Background and aims: Exercise is key to ameliorating sleep disorders in obese populations; however, the relative benefits of different exercise modes and the optimal dosage remain unclear. This study aims to systematically evaluate the relative efficacy and dose-response characteristics of seven exercise interventions on sleep quality (Pittsburgh Sleep Quality Index [PSQI]) and body mass index (BMI) in overweight and obese populations via network meta-analysis (NMA). Methods: This study strictly adhered to the Preferred Reporting Items for Systematic Reviews and Meta-Analyses (PRISMA) guidelines and systematically searched nine databases, including PubMed, Embase, and China National Knowledge Infrastr</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">睡眠・リカバリー系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="3" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41777686/" target="_blank" rel="noopener">ヒップスラストトレーニングの急性・長期効果：SR&amp;MA</a></h2>
+      <div class="card-body">
+        <p class="card-text">Full text links Cite Display options Display options Format Abstract PubMed PMID Abstract Background: The hip thrust (HT) is a popular exercise, but its transfer to athletic performance is debated. We aimed to quantify the acute and long-term effects of HT training on performance. Methods: Following PRISMA guidelines, a comprehensive search of six electronic databases was conducted to identify randomized controlled trials. Data from 20 studies assessing the effects of HT training on strength, acceleration, and jump performance were synthesized using random-effects models to calculate pooled Hedges&#x27; g effect sizes (ES). Results: Acutely, the HT induced a moderate post-activation performance enhancement on sprinting (ES = 0.55), dependent on protocol ( e.g. , multiple sets, ≥4 min recovery).</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">睡眠・リカバリー系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="claude-code">
+      <div class="card-header">
+        <span class="source-badge claude-code">Claude Code</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.71" target="_blank" rel="noopener">v2.1.71 (3/7)</a></h2>
+      <div class="card-body">
+        <p class="card-text">`/loop`コマンド追加（定期実行）、音声pushToTalkキーバインド対応、長時間セッションのフリーズ修正、プラグイン管理改善</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="claude-code">
+      <div class="card-header">
+        <span class="source-badge claude-code">Claude Code</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.70" target="_blank" rel="noopener">v2.1.70 (3/6)</a></h2>
+      <div class="card-body">
+        <p class="card-text">VS Code Activity Barにセッション一覧アイコン追加、MCPサーバー管理ダイアログ追加、サードパーティAPIゲートウェイ400エラー修正</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="claude-code">
+      <div class="card-header">
+        <span class="source-badge claude-code">Claude Code</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.69" target="_blank" rel="noopener">v2.1.69 (3/5)</a></h2>
+      <div class="card-body">
+        <p class="card-text">`/claude-api`スキル追加、音声STTが10新言語対応（計20言語）、`/reload-plugins`コマンド、`${CLAUDE_SKILL_DIR}`変数追加、セキュリティ修正</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="claude-code">
+      <div class="card-header">
+        <span class="source-badge claude-code">Claude Code</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.68" target="_blank" rel="noopener">v2.1.68 (3/4)</a></h2>
+      <div class="card-body">
+        <p class="card-text">**Opus 4.6がMax/Team購読者のデフォルトに**、「ultrathink」キーワード再導入（高努力モード）、Opus 4/4.1廃止→自動的に4.6へ移行</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="claude-code">
+      <div class="card-header">
+        <span class="source-badge claude-code">Claude Code</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.anthropic.com/engineering" target="_blank" rel="noopener">ブログ: 並列Claudeチームでのコンパイラ開発</a></h2>
+      <div class="card-body">
+        <p class="card-text">Opus 4.6を使用した複数エージェントチームでCコンパイラ開発。自律的なソフトウェア開発の未来</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="claude-code">
+      <div class="card-header">
+        <span class="source-badge claude-code">Claude Code</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://gigazine.net/news/20260309-anthropic-mozilla-firefox-debug/" target="_blank" rel="noopener">AnthropicとMozillaがFirefoxデバッグで連携</a></h2>
+      <div class="card-body">
+        <p class="card-text">Claude Opus 4.6がFirefoxで100件超のバグをわずか2週間で発見</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">AI開発</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/389.html" target="_blank" rel="noopener">認知症の38.9％は予防可能！そのカギはアレですよ、という研究の話</a></h2>
+      <div class="card-body">
+        <p class="card-text">認知症予防の行動介入要素、健康アプリの長期目標設定</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">健康科学・エビデンス</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/50.html" target="_blank" rel="noopener">うつを「強さの証拠だ！」と捉え直すと、目標達成が50%伸びるかもしれない説</a></h2>
+      <div class="card-body">
+        <p class="card-text">メンタルヘルスと目標設定、リフレーミング機能</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">健康科学・エビデンス</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/blog-post.html" target="_blank" rel="noopener">今週の小ネタ：呼吸のタイミングが記憶を左右する、やる気を出したい時は「脳のモード」に気をつけよう</a></h2>
+      <div class="card-body">
+        <p class="card-text">呼吸法・集中力、ワークアウト中の呼吸ガイダンス</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">健康科学・エビデンス</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41788711/" target="_blank" rel="noopener">線維筋痛症に対する運動の痛み・疲労・QOLへの効果：SR&amp;MA of RCTs</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Frontiers in Medicine] 運動が線維筋痛症の痛み・疲労・生活の質を改善</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41787869/" target="_blank" rel="noopener">ADHD児の運動スキル向上のための運動介入最適化：MA</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Clinical Rehabilitation] 運動介入がADHD児の運動スキル改善に有効</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41794545/" target="_blank" rel="noopener">アスリートの短期低エネルギー利用可能性に対する生化学的応答：SR</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Scand J Med Sci Sports] エネルギー不足がアスリートの生化学的指標に影響</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41794189/" target="_blank" rel="noopener">生活習慣介入がうつ病の補助治療として有効：アンブレラレビュー</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Complement Ther Med] 運動を含む生活習慣介入がうつ病治療を補助</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41781270/" target="_blank" rel="noopener">2型糖尿病/前糖尿病患者の行動的体重管理に関する成人の視点：SR</a></h2>
+      <div class="card-body">
+        <p class="card-text">[BJGP Open] 行動変容アプローチの患者視点</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41770550/" target="_blank" rel="noopener">若年者の日常スクリーン使用と睡眠の個人内関連：SR&amp;MA</a></h2>
+      <div class="card-body">
+        <p class="card-text">[JAMA Pediatrics] スクリーン時間増加が若年者の睡眠を悪化（JAMA掲載で高エビデンス）</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41783454/" target="_blank" rel="noopener">COVID-19ロックダウン後のアスリートの体力・体組成変化：SR&amp;MA&amp;メタ回帰</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Biology of Sport] トレーニング中断の影響と回復パターン</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">睡眠・リカバリー系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="2" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41782111/" target="_blank" rel="noopener">PCOS女性に対するヨガの抗ミュラー管ホルモン・アンドロゲン・代謝指標への効果：SR</a></h2>
+      <div class="card-body">
+        <p class="card-text">[BMC Complement Med Ther] ヨガのPCOS改善効果</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">睡眠・リカバリー系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/blog-post_07.html" target="_blank" rel="noopener">「自信過剰」で問題を起こす人は、そのように生まれついているのか？問題</a></h2>
+      <div class="card-body">
+        <p class="card-text">行動心理学</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">健康科学・エビデンス</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/blog-post_06.html" target="_blank" rel="noopener">外向的な人は本当に仕事ができるのか？問題をデータでチェックしてみよう！</a></h2>
+      <div class="card-body">
+        <p class="card-text">性格と生産性の関係</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">健康科学・エビデンス</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/03/blog-post_05.html" target="_blank" rel="noopener">初対面で好かれる人の正体。人気者と親友タイプは&quot;別物&quot;だよーという話</a></h2>
+      <div class="card-body">
+        <p class="card-text">社会心理学</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">健康科学・エビデンス</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="paleo">
+      <div class="card-header">
+        <span class="source-badge paleo">パレオな男</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://yuchrszk.blogspot.com/2026/02/blog-post_28.html" target="_blank" rel="noopener">大まかな性格テストをするぐらいなら「ニュアンス」を把握したほうが有効じゃない？</a></h2>
+      <div class="card-body">
+        <p class="card-text">パーソナライゼーション設計</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">健康科学・エビデンス</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41790033/" target="_blank" rel="noopener">急性静脈血栓塞栓症における構造化運動訓練：SR of RCTs</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Eur J Prev Cardiol] 静脈血栓患者の運動リハビリ安全性</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41788111/" target="_blank" rel="noopener">糖尿病性ニューロパチーの治療・診断：SR</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Cureus] 糖尿病性神経障害の治療ランドスケープ</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41788001/" target="_blank" rel="noopener">心不全における酸素動態の早期回復：SR</a></h2>
+      <div class="card-body">
+        <p class="card-text">[Curr Cardiol Rev] 心不全患者の運動回復指標</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">運動・筋トレ系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41783998/" target="_blank" rel="noopener">がん関連リンパ浮腫の発症に対する運動の効果：SR&amp;MA</a></h2>
+      <div class="card-body">
+        <p class="card-text">[JNCI Cancer Spectrum] 運動ががん関連リンパ浮腫リスクに影響</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41773635/" target="_blank" rel="noopener">LGBTQIA+の身体活動相関因子：SR</a></h2>
+      <div class="card-body">
+        <p class="card-text">[J Sports Sciences] LGBTQIA+集団の運動促進因子</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">栄養・食事系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="1" data-source="pubmed">
+      <div class="card-header">
+        <span class="source-badge pubmed">PubMed</span>
+        <span class="stars">★</span>
+      </div>
+      <h2 class="card-title"><a href="https://pubmed.ncbi.nlm.nih.gov/41777097/" target="_blank" rel="noopener">物質使用障害者の精神症状に対する非薬物介入：ネットワークMA</a></h2>
+      <div class="card-body">
+        <p class="card-text">[J Addictive Diseases] 運動を含む非薬物介入の効果比較</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">睡眠・リカバリー系</span>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">23,918 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1ro15xl/oracle_layoffs_tech_giant_to_slash_30000_jobs_as/" target="_blank" rel="noopener">Oracleレイオフ：3万人削減、銀行がAIデータセンター融資撤退</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">7,263 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1ro2q6k/the_american_people_should_not_be_footing_the/" target="_blank" rel="noopener">「米国民が民間企業の利益の負担をすべきでない」：テック大手がデータセンター電力料金を顧客に転嫁しない誓約</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">6,536 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1roe1fa/were_training_students_to_write_worse_to_prove/" target="_blank" rel="noopener">学生にロボットでないことを証明するため、わざと下手に書かせている→結果AI利用が増加</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">3,907 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1ro9url/ceo_jensen_huang_set_to_receive_4_million_bonus/" target="_blank" rel="noopener">CEO Jensen Huangが$4M報酬、総資産の0.002%</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">3,686 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1ro76er/online_ageverification_tools_spread_across_us_for/" target="_blank" rel="noopener">オンライン年齢確認ツールが米国に拡大、大人も監視下に</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">2,400 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1robpp4/openai_on_surveillance_and_autonomous_killings/" target="_blank" rel="noopener">OpenAI「監視と自律型殺傷について：我々を信頼するしかない」</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">1,664 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1ro6fdg/crunchyroll_sued_over_allegedly_leaking_fans/" target="_blank" rel="noopener">Crunchyrollがアニメ視聴データ漏えいで訴訟（$16M和解後）</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">1,429 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1ro446w/nvidia_dominates_gaming_gpu_market_with_95/" target="_blank" rel="noopener">NvidiaがゲーミングGPU市場を95%シェアで独占</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">830 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/webdev/comments/1ro3pk8/so_one_forgot_something/" target="_blank" rel="noopener">誰かが忘れ物をした</a></h2>
+      <div class="card-body">
+        <p class="card-text">セキュリティ事故</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">549 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/programming/comments/1rocrn2/open_sores_an_essay_on_how_programmers_spent/" target="_blank" rel="noopener">Open Sores - プログラマーがオープン文化を築き罰せられる話</a></h2>
+      <div class="card-body">
+        <p class="card-text">プログラマーがオープン文化を築き罰せられる話](https://www.reddit.com/r/programming/comments/1rocrn2/open_sores_an_essay_on_how_programmers_spent/) (549 ups, 87 comments) - r/programming - OSS問題</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">529 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/webdev/comments/1rnun1i/ban_posts_about_ai/" target="_blank" rel="noopener">AI投稿を禁止しろ</a></h2>
+      <div class="card-body">
+        <p class="card-text">コミュニティ議論</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">520 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47300329" target="_blank" rel="noopener">HNへの要望：新規アカウントの投稿を制限してほしい</a></h2>
+      <div class="card-body">
+        <p class="card-text">HNコミュニティ議論</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">476 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/technology/comments/1rog22z/nasa_successfully_deflected_a_small_asteroid_with/" target="_blank" rel="noopener">NASAがDART小惑星偏向に成功</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/technology</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">469 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/programming/comments/1ro2w8v/llmdriven_large_code_rewrites_with_relicensing/" target="_blank" rel="noopener">LLM駆動の大規模コード書き換えとライセンス変更が最新のAI懸念</a></h2>
+      <div class="card-body">
+        <p class="card-text">AIライセンス問題</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">385 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47298044" target="_blank" rel="noopener">FrameBook</a></h2>
+      <div class="card-body">
+        <p class="card-text">フレームワーク</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">346 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47296547" target="_blank" rel="noopener">孤独でいるには？</a></h2>
+      <div class="card-body">
+        <p class="card-text">ライフスタイル</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">325 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47291876" target="_blank" rel="noopener">顕微鏡でレーザーディスクの映像が見える</a></h2>
+      <div class="card-body">
+        <p class="card-text">ハードウェア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">309 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47298885" target="_blank" rel="noopener">LibreOffice WriterがMarkdownをサポート</a></h2>
+      <div class="card-body">
+        <p class="card-text">オープンソースツール</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">283 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.manj.io/blog/2026/retiring-from-ly/" target="_blank" rel="noopener">LINEヤフーを退職します</a></h2>
+      <div class="card-body">
+        <p class="card-text">from-ly/) (283 users) - エンジニアキャリア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">238 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/uniquevision/articles/625e00137b75af" target="_blank" rel="noopener">アーキテクチャ図、コードで書こう - C4モデル入門</a></h2>
+      <div class="card-body">
+        <p class="card-text">C4モデル入門](https://zenn.dev/uniquevision/articles/625e00137b75af) (238 users) - C4アーキテクチャモデル</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">225 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://posfie.com/@kalofollow/p/4kXXyni" target="_blank" rel="noopener">看護長が退職され、アカウントの停止処理をしたら即日病棟から鬼電</a></h2>
+      <div class="card-body">
+        <p class="card-text">情シスあるある</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">190 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47254896" target="_blank" rel="noopener">なぜギターのチューニングができないのか？（2019）</a></h2>
+      <div class="card-body">
+        <p class="card-text">音楽/数学</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">185 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/hfm/articles/commit-message-generated-by-ai" target="_blank" rel="noopener">コミットメッセージを自分で書かない</a></h2>
+      <div class="card-body">
+        <p class="card-text">message-generated-by-ai) (185 users) - AI生成コミットメッセージ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">181 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47298743" target="_blank" rel="noopener">私のホームラボ構成</a></h2>
+      <div class="card-body">
+        <p class="card-text">インフラ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">178 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://qiita.com/kamome_susume/items/e80b763797d073815710" target="_blank" rel="noopener">エンジニアがChatGPTを使いこなせていないかもしれない話</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI活用テクニック</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">170 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://speakerdeck.com/ymotongpoo/dev-and-ops-in-gen-ai-era" target="_blank" rel="noopener">生成AI時代の開発と運用</a></h2>
+      <div class="card-body">
+        <p class="card-text">and-ops-in-gen-ai-era) (170 users) - AI時代のDevOps</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">160 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47297919" target="_blank" rel="noopener">生きたヒト脳細胞がDOOMをプレイ【動画】</a></h2>
+      <div class="card-body">
+        <p class="card-text">バイオコンピューティング</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">156 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://note.com/simplearchitect/n/nf00d38494ac3" target="_blank" rel="noopener">ジュニアエンジニアの人、AI後はこうしたらええんちゃう？という話</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI時代のキャリア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">147 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47256376" target="_blank" rel="noopener">Rustに対する私の「壮大なビジョン」</a></h2>
+      <div class="card-body">
+        <p class="card-text">Rust言語</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">137 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://qiita.com/YASUHARA-Wataru/items/5a8a16a2b7e91c3536a8" target="_blank" rel="noopener">Pandasはもう古い？2026年のPythonデータ分析ライブラリを整理してみた</a></h2>
+      <div class="card-body">
+        <p class="card-text">Wataru/items/5a8a16a2b7e91c3536a8) (137 users) - Python最新ライブラリ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">131 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47260812" target="_blank" rel="noopener">2025年にテストした全シングルボードコンピュータ</a></h2>
+      <div class="card-body">
+        <p class="card-text">ハードウェア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">126 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/koyo_k0/articles/c4f90b2ff722e0" target="_blank" rel="noopener">手動でのコーディングをやめていく際のメモ</a></h2>
+      <div class="card-body">
+        <p class="card-text">AIコーディング移行</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">118 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47301808" target="_blank" rel="noopener">Blacksky AppView</a></h2>
+      <div class="card-body">
+        <p class="card-text">分散SNS</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">110 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/programming/comments/1ro40xj/nestjs_is_a_bad_typescript_framework/" target="_blank" rel="noopener">NestJSは悪いTypeScriptフレームワーク</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/programming</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">109 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/webdev/comments/1robxdk/why_modern_web_uses_jwts/" target="_blank" rel="noopener">なぜ現代WebはJWTを使うのか？</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/webdev</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">108 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/r57ty7/articles/879db0530ad899" target="_blank" rel="noopener">並列開発を支えるtmux, git, zsh設定集</a></h2>
+      <div class="card-body">
+        <p class="card-text">開発環境設定</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">103 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47294582" target="_blank" rel="noopener">USB-Cプラグサイズの基板開発ボード</a></h2>
+      <div class="card-body">
+        <p class="card-text">Cプラグサイズの基板開発ボード](https://news.ycombinator.com/item?id=47294582) (103pt) - ハードウェア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">97 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://azukiazusa.dev/blog/skill-create-skill-creation-and-improvement/" target="_blank" rel="noopener">Skill Create スキルを使用したスキルの作成と改善</a></h2>
+      <div class="card-body">
+        <p class="card-text">create-skill-creation-and-improvement/) (97 users) - Claude Codeスキル開発</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">97 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/webdev/comments/1ro1tqz/appreciation_for_old_school_web_dev/" target="_blank" rel="noopener">オールドスクールWeb開発への感謝</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/webdev</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">92 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47301241" target="_blank" rel="noopener">Lil Finder Guy</a></h2>
+      <div class="card-body">
+        <p class="card-text">ツール</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">90 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47256810" target="_blank" rel="noopener">Z80 Sans - フォントに組み込まれた逆アセンブラ（2024）</a></h2>
+      <div class="card-body">
+        <p class="card-text">フォントに組み込まれた逆アセンブラ（2024）](https://news.ycombinator.com/item?id=47256810) (90pt) - ハック</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">86 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1rogtmk/my_friend_pointed_this_out_and_now_i_cant_unsee_it/" target="_blank" rel="noopener">友達に指摘されて、もう見えなくなれない</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/ClaudeCode</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">85 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.publickey1.jp/blog/26/awsawsopenclawvpsamazon_lightsail.html" target="_blank" rel="noopener">AWS、AWS上ですぐ使えるOpenClawを提供開始</a></h2>
+      <div class="card-body">
+        <p class="card-text">AWS新サービス</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">85 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47301233" target="_blank" rel="noopener">Artificial-life：計算生命の簡単な再現（コード300行）</a></h2>
+      <div class="card-body">
+        <p class="card-text">life：計算生命の簡単な再現（コード300行）](https://news.ycombinator.com/item?id=47301233) (85pt) - 人工生命</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">82 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47299505" target="_blank" rel="noopener">WSLマネージャー</a></h2>
+      <div class="card-body">
+        <p class="card-text">Windows開発ツール</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">79 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47303111" target="_blank" rel="noopener">HNに聞く：何に取り組んでいますか？（2026年3月）</a></h2>
+      <div class="card-body">
+        <p class="card-text">コミュニティ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">76 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/AppBusiness/comments/1ro4wx4/just_crossed_300_revenue_on_my_ios_app/" target="_blank" rel="noopener">iOSアプリで$300収益を突破</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/AppBusiness</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">75 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://retro-gamer.jp/?p=42528" target="_blank" rel="noopener">バンダイのPS1用ゲーム『魔女っ子大作戦』はなんでこんな作品になったのか？</a></h2>
+      <div class="card-body">
+        <p class="card-text">gamer.jp/?p=42528) (75 users) - レトロゲーム</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">72 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.itmedia.co.jp/enterprise/articles/2603/02/news020.html" target="_blank" rel="noopener">「バイブコーディング」で終わるな　Googleエンジニアが説くAI時代のプロフェッショナル論</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI時代のエンジニアリング</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">70 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://c4model.com/" target="_blank" rel="noopener">C4 Model</a></h2>
+      <div class="card-body">
+        <p class="card-text">C4モデル公式</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">69 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47299022" target="_blank" rel="noopener">Show HN: Skir - Protocol Bufferの改良版</a></h2>
+      <div class="card-body">
+        <p class="card-text">Protocol Bufferの改良版](https://news.ycombinator.com/item?id=47299022) (69pt) - プロトコル</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">69 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/webdev/comments/1rogwjq/i_miss_flash_what_an_era/" target="_blank" rel="noopener">Flashが懐かしい。あの時代よ…</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/webdev</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">60 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://justin.poehnelt.com/posts/rewrite-your-cli-for-ai-agents/" target="_blank" rel="noopener">You Need to Rewrite Your CLI for AI Agents</a></h2>
+      <div class="card-body">
+        <p class="card-text">your-cli-for-ai-agents/) (60 users) - AIエージェント向けCLI設計</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">57 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://tech.smarthr.jp/entry/2026/03/05/091302" target="_blank" rel="noopener">バックエンドエンジニアがフロントエンドをLLMに頼って実装した反省点</a></h2>
+      <div class="card-body">
+        <p class="card-text">LLM活用の教訓</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">57 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47299606" target="_blank" rel="noopener">M&amp;Msでプログラミング言語を作った</a></h2>
+      <div class="card-body">
+        <p class="card-text">言語設計</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">56 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/mkj/articles/9827c9d7686a73" target="_blank" rel="noopener">Vibe Codingは実プロジェクトで通用するのか？約6ヶ月試してわかったこと</a></h2>
+      <div class="card-body">
+        <p class="card-text">Vibe Coding実践レポート</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">51 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.techno-edge.net/article/2026/03/06/4899.html" target="_blank" rel="noopener">家庭用PCで使える無料OCRツール「NDLOCR-Lite」を国立国会図書館が公開</a></h2>
+      <div class="card-body">
+        <p class="card-text">Lite」を国立国会図書館が公開](https://www.techno-edge.net/article/2026/03/06/4899.html) (51 users) - 無料OCRツール</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">50 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/Fitness/comments/1rn4mg8/gym_story_saturday/" target="_blank" rel="noopener">ジムストーリー・サタデー</a></h2>
+      <div class="card-body">
+        <p class="card-text">コミュニティ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">49 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47302463" target="_blank" rel="noopener">Linux内部：/proc/self/memが書き込み不可メモリに書き込む仕組み（2021）</a></h2>
+      <div class="card-body">
+        <p class="card-text">Linux内部</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">48 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://forbesjapan.com/articles/detail/93263" target="_blank" rel="noopener">アンソロピック発表、「AIに奪われにくい仕事」6選とその共通点</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI時代のキャリア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">47 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/javascript/comments/1rn6kpo/ember_611_released/" target="_blank" rel="noopener">Ember 6.11リリース</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/javascript</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">44 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://shujisado.com/2026/03/09/license_change_for_aigenerated_reimplementation_of_chardet/" target="_blank" rel="noopener">AI生成によるchardet再実装におけるライセンス変更の是非</a></h2>
+      <div class="card-body">
+        <p class="card-text">OSSライセンス問題</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">44 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://gigazine.net/news/20260308-llmfit/" target="_blank" rel="noopener">システムのメモリ・CPU・GPUに合わせて適切なAIモデルを教えてくれる「llmfit」</a></h2>
+      <div class="card-body">
+        <p class="card-text">llmfit/) (44 users) - ローカルLLMツール</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">44 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.sbbit.jp/article/cont1/182151" target="_blank" rel="noopener">現代人、深刻な「AI疲労」を発症していることが判明</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI疲労</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">44 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://github.com/phuryn/pm-skills" target="_blank" rel="noopener">PM Skills Marketplace</a></h2>
+      <div class="card-body">
+        <p class="card-text">skills) (44 users) - PM向けスキルマーケットプレイス</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">44 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.itmedia.co.jp/news/articles/2603/02/news022.html" target="_blank" rel="noopener">&quot;限界情シス&quot;を疑似体験する「情シスすごろく」に新版</a></h2>
+      <div class="card-body">
+        <p class="card-text">情シスゲーミフィケーション</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">44 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/Fitness/comments/1rkhjf4/rant_wednesday_march_04_2026/" target="_blank" rel="noopener">愚痴ウェンズデー - 2026年3月4日</a></h2>
+      <div class="card-body">
+        <p class="card-text">2026年3月4日](https://www.reddit.com/r/Fitness/comments/1rkhjf4/rant_wednesday_march_04_2026/) (44 ups, 145 comments) - r/fitness - コミュニティ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">41 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.publickey1.jp/blog/26/openaicodex_for_windowswindowsaiwsl.html" target="_blank" rel="noopener">OpenAI、「Codex for Windows」正式リリース</a></h2>
+      <div class="card-body">
+        <p class="card-text">OpenAI競合動向</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">41 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://speakerdeck.com/nwiizo/ji-shu-de-fu-zhai-noni-zhao-karazu-zhi-wojiu-u3tunozhuan-huan-dian" target="_blank" rel="noopener">技術的負債の泥沼から組織を救う3つの転換点</a></h2>
+      <div class="card-body">
+        <p class="card-text">shu-de-fu-zhai-noni-zhao-karazu-zhi-wojiu-u3tunozhuan-huan-dian) (41 users) - 技術的負債対策</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">35 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://dev.classmethod.jp/articles/qwen-3-5-4b-aws-gpu-private-llm-ollama-tailscale/" target="_blank" rel="noopener">スマホからもPCからも使えるプライベートLLM環境をAWSに構築してみた</a></h2>
+      <div class="card-body">
+        <p class="card-text">3-5-4b-aws-gpu-private-llm-ollama-tailscale/) (35 users) - プライベートLLM構築</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">34 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.publickey1.jp/blog/26/claude_codeai.html" target="_blank" rel="noopener">Claude Codeが「音声モード」搭載</a></h2>
+      <div class="card-body">
+        <p class="card-text">Claude Code音声機能</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">33 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://gigazine.net/news/20260308-vulnerability-disclosure-lawyer-threat/" target="_blank" rel="noopener">個人情報漏えいにつながる脆弱性を報告したら法的責任を示唆する文書が届いた</a></h2>
+      <div class="card-body">
+        <p class="card-text">vulnerability-disclosure-lawyer-threat/) (33 users) - セキュリティ開示問題</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">33 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/airiswim/articles/78d5e95bed7be0" target="_blank" rel="noopener">AIの時代にエンジニアとして何を磨くか</a></h2>
+      <div class="card-body">
+        <p class="card-text">エンジニアキャリア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">32 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/acntechjp/articles/c1296f425baf03" target="_blank" rel="noopener">Claude Code が RAG を捨てた理由 -「Agentic Search」という選択肢</a></h2>
+      <div class="card-body">
+        <p class="card-text">「Agentic Search」という選択肢](https://zenn.dev/acntechjp/articles/c1296f425baf03) (32 users) - Claude Codeアーキテクチャ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">32 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/kmizu/articles/2026-03-ai-coding-bench-methodology" target="_blank" rel="noopener">「Claude Codeに向いているプログラミング言語」ベンチマークの方法論的問題</a></h2>
+      <div class="card-body">
+        <p class="card-text">03-ai-coding-bench-methodology) (32 users) - AIベンチマーク批評</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">32 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.itmedia.co.jp/aiplus/articles/2603/06/news115.html" target="_blank" rel="noopener">みずほFGの自社LLM、「GPT-5.2と同精度」でオンプレ運用可能</a></h2>
+      <div class="card-body">
+        <p class="card-text">5.2と同精度」でオンプレ運用可能](https://www.itmedia.co.jp/aiplus/articles/2603/06/news115.html) (32 users) - 金融LLM</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">32 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.businessinsider.jp/article/c96d3844-749c-4e37-bd98-6c1dfed3aac4/" target="_blank" rel="noopener">Claude Code開発者「ソフトウェアエンジニアはコーディング以外の仕事を始めるだろう」</a></h2>
+      <div class="card-body">
+        <p class="card-text">749c-4e37-bd98-6c1dfed3aac4/) (32 users) - AI時代のエンジニア像</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">28 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1ro8b7r/opus_46_thinking_1m_context_is_the_best_thing_ever/" target="_blank" rel="noopener">Opus 4.6 Thinking 1Mコンテキストが最高すぎる！！！</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/ClaudeCode</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">27 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://pc.watch.impress.co.jp/docs/topic/feature/2090806.html" target="_blank" rel="noopener">今さら聞けない「ローカルLLM」。LM Studioなら自分のPCで手軽に試せます！</a></h2>
+      <div class="card-body">
+        <p class="card-text">ローカルLLM入門</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">27 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://note.com/20191201yiping/n/ne38e9bd31786" target="_blank" rel="noopener">デザイナーがClaudeとFigma MCPで試したこと（VibeCoding実践記）</a></h2>
+      <div class="card-body">
+        <p class="card-text">Figma MCP活用</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">26 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47304886" target="_blank" rel="noopener">ソーシャルメディアの死はRSSのルネサンス</a></h2>
+      <div class="card-body">
+        <p class="card-text">SNS/RSS</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">26 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1ro2qyl/new_features_app_tour_library_for_react_native/" target="_blank" rel="noopener">App TourライブラリforRN (Expo/CLI)</a></h2>
+      <div class="card-body">
+        <p class="card-text">オンボーディングUX</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">26 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/Fitness/comments/1rm9ywe/physique_phriday/" target="_blank" rel="noopener">体型フライデー</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/fitness</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">20 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://atmarkit.itmedia.co.jp/ait/articles/2603/04/news072.html" target="_blank" rel="noopener">「AIコーディングをどう使うか」次第でスキルが低下？Anthropicが分析</a></h2>
+      <div class="card-body">
+        <p class="card-text">AIコーディングスキル影響</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">18 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://levtech.jp/media/article/interview/detail_821/" target="_blank" rel="noopener">Goが15年でバックエンドの標準になるまで</a></h2>
+      <div class="card-body">
+        <p class="card-text">Go言語の歴史</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">18 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://tech.findy.co.jp/entry/2026/03/09/080000" target="_blank" rel="noopener">ファインディのKPIダッシュボードを支えるLookerと段階的データモデリング戦略</a></h2>
+      <div class="card-body">
+        <p class="card-text">データモデリング</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">18 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/Fitness/comments/1ro02r4/victory_sunday/" target="_blank" rel="noopener">ビクトリーサンデー</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/fitness</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">17 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://techblog.zozo.com/entry/general-pipelines" target="_blank" rel="noopener">汎用推薦システム ── Embedding基盤とBigQuery Vector Searchで実現する高速システム構築</a></h2>
+      <div class="card-body">
+        <p class="card-text">pipelines) (17 users) - 推薦システム</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">17 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://chezo.uno/post/2026-03-07-2026-03-08-between-principal-and-glue-work/" target="_blank" rel="noopener">Principal と器用貧乏のあいだ</a></h2>
+      <div class="card-body">
+        <p class="card-text">03-07-2026-03-08-between-principal-and-glue-work/) (17 users) - エンジニアキャリア</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">17 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47302490" target="_blank" rel="noopener">最期の言葉</a></h2>
+      <div class="card-body">
+        <p class="card-text">文化</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">17 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/startups/comments/1rocb0n/i_spent_a_week_talking_to_engineers_and_founders/" target="_blank" rel="noopener">エンジニアと創業者にスタンドアップについて1週間話した。驚いたこと。</a></h2>
+      <div class="card-body">
+        <p class="card-text">スタンドアップミーティング</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">16 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://forbesjapan.com/articles/detail/93254" target="_blank" rel="noopener">ChatGPTから400万人が離脱、需要急増で対応に苦しむアンソロピックClaude</a></h2>
+      <div class="card-body">
+        <p class="card-text">AI市場動向</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">16 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1roeg77/claude_vs_codex_20_plans/" target="_blank" rel="noopener">Claude vs Codex 20ドルプラン</a></h2>
+      <div class="card-body">
+        <p class="card-text">競合比較</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">15 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47281827" target="_blank" rel="noopener">伝説のモハベ電話ボックスが復活（2013）</a></h2>
+      <div class="card-body">
+        <p class="card-text">歴史</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">15 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/javascript/comments/1rn8dza/replacement_for_jscodeshift_that_is_100_api/" target="_blank" rel="noopener">jscodeshift互換でRust/oxcベースの8倍高速な代替</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/javascript</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">14 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://github.com/yessGlory17/argus" target="_blank" rel="noopener">argus: Claude Code Session Debugger &amp; Performance Analyzer</a></h2>
+      <div class="card-body">
+        <p class="card-text">Claude Codeデバッグツール</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">14 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://note.com/jujunjun110/n/n0903bad8b2f2" target="_blank" rel="noopener">ClaudeCode無限ループ(ralph-loop)による完全自律開発ワークフロー</a></h2>
+      <div class="card-body">
+        <p class="card-text">loop)による完全自律開発ワークフロー](https://note.com/jujunjun110/n/n0903bad8b2f2) (14 users) - 自律開発ワークフロー</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">13 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1rodwem/built_a_couples_task_app_with_react_native/" target="_blank" rel="noopener">カップル向けタスクアプリをRN+Supabaseで構築（400+ユーザー、今週初課金）</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/reactnative</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">13 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/bodyweightfitness/comments/1rnn7rs/need_rings_exercise_recommendations/" target="_blank" rel="noopener">リングエクササイズのおすすめを教えて</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/bodyweightfitness</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">13 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/sleep/comments/1romo0d/does_anyone_else_get_anxious_the_moment_they_try/" target="_blank" rel="noopener">眠ろうとすると不安になる人いる？</a></h2>
+      <div class="card-body">
+        <p class="card-text">入眠不安</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">11 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://atmarkit.itmedia.co.jp/ait/articles/2603/09/news010.html" target="_blank" rel="noopener">自分のPCのChrome拡張は安全か？Claude Coworkで権限と挙動をチェック</a></h2>
+      <div class="card-body">
+        <p class="card-text">Claude Cowork活用</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">11 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://zenn.dev/ko1/articles/06bca0305a7c34" target="_blank" rel="noopener">lumitrace で「念のため .to_s」を一掃した話</a></h2>
+      <div class="card-body">
+        <p class="card-text">Ruby型安全性</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">11 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://techblog.zozo.com/entry/release-pipeline-argo-events-workflows" target="_blank" rel="noopener">Argo EventsとArgo Workflowsの導入によるリリースパイプラインの改善</a></h2>
+      <div class="card-body">
+        <p class="card-text">pipeline-argo-events-workflows) (11 users) - CI/CD改善</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">11 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1rohbj0/what_to_include_in_claudemd_and_what_not/" target="_blank" rel="noopener">CLAUDE.mdに何を入れるべきか…何を入れないべきか？</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/ClaudeCode</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">10 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/bodyweightfitness/comments/1rohh7z/new_dad_insights_on_fitness/" target="_blank" rel="noopener">新米パパのフィットネスインサイト</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/bodyweightfitness</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">10 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/sleep/comments/1roho7g/does_an_alarm_clock_like_this_exist/" target="_blank" rel="noopener">こんな目覚まし時計ある？</a></h2>
+      <div class="card-body">
+        <p class="card-text">睡眠デバイス</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">9 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.itmedia.co.jp/enterprise/articles/2603/05/news035.html" target="_blank" rel="noopener">Claude Codeの重大な脆弱性を分析　開発者への3つの影響とは？</a></h2>
+      <div class="card-body">
+        <p class="card-text">Claude Codeセキュリティ</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">9 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1ro11il/i_built_a_customizable_react_world_map_component/" target="_blank" rel="noopener">カスタマイズ可能なReact世界地図コンポーネント</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/reactnative</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">9 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/nutrition/comments/1rofrsi/whole_food_diet_suddenly_sweet_cravings/" target="_blank" rel="noopener">ホールフードダイエットを始めたら突然甘いもの欲求</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/nutrition</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">7 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://cero-t.hatenadiary.jp/entry/2026/03/09/080000" target="_blank" rel="noopener">Spring Boot 4.0 の OpenTelemetry 対応</a></h2>
+      <div class="card-body">
+        <p class="card-text">t.hatenadiary.jp/entry/2026/03/09/080000) (7 users) - Java/Spring最新</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hatena">
+      <div class="card-header">
+        <span class="source-badge hatena">はてブ</span>
+        <span class="metric">7 users</span>
+      </div>
+      <h2 class="card-title"><a href="https://note.com/keyaki_dev/n/ndd73bfa2663a" target="_blank" rel="noopener">Claude Codeを使い倒すエンジニアのリアル</a></h2>
+      <div class="card-body">
+        <p class="card-text">Claude Code実践</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="hn">
+      <div class="card-header">
+        <span class="source-badge hn">HN</span>
+        <span class="metric">7 pt</span>
+      </div>
+      <h2 class="card-title"><a href="https://news.ycombinator.com/item?id=47287259" target="_blank" rel="noopener">20年前のパズルゲームChromatronをGhidraとAIで復活させた</a></h2>
+      <div class="card-body">
+        <p class="card-text">リバースエンジニアリング</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">6 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1roo3gn/built_an_os_within_an_app_using_bare_rn_instant/" target="_blank" rel="noopener">素のRNで「OS内アプリ」を構築</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/reactnative</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">6 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/AppBusiness/comments/1ron02f/just_crossed_200_mrr_today_but_the_real_story_is/" target="_blank" rel="noopener">200 MRR突破、年間サブスク売上が本題</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/AppBusiness</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">5 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1roa2ql/how_do_you_handle_auth_flow_in_expo_router/" target="_blank" rel="noopener">Expo Routerでの認証フロー処理方法</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/reactnative</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">5 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/startups/comments/1ro2tnb/having_a_hard_time_with_offering_free_service/" target="_blank" rel="noopener">無料サービスで苦戦中、課金すべき？</a></h2>
+      <div class="card-body">
+        <p class="card-text">価格戦略</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">5 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/startups/comments/1roosbp/how_are_you_handling_accounting_finance_in_the/" target="_blank" rel="noopener">早期ステージの経理・財務どうしてる？</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/startups</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">5 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/nutrition/comments/1rogcf8/low_saturated_fat_dark_chocolate/" target="_blank" rel="noopener">低飽和脂肪のダークチョコレート？</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/nutrition</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">5 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/nutrition/comments/1roalq1/nutrient_games/" target="_blank" rel="noopener">栄養ゲーム！！</a></h2>
+      <div class="card-body">
+        <p class="card-text">ゲーミフィケーション</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">4 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/expo/comments/1roa3ok/onboarding_flow_for_my_food_tracker_app_feedback/" target="_blank" rel="noopener">食事トラッカーアプリのオンボーディングフロー、フィードバック歓迎</a></h2>
+      <div class="card-body">
+        <p class="card-text">UXフィードバック</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">4 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/sleep/comments/1rogtkd/havent_slept_in_almost_a_week_have_you_discovered/" target="_blank" rel="noopener">1週間近く眠れてない。自然療法で効いたもの教えて</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/sleep</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">4 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/sleep/comments/1rogqtq/change_your_sleep_schedule_in_23_days_easy/" target="_blank" rel="noopener">睡眠スケジュールを2-3日で変える簡単な方法！</a></h2>
+      <div class="card-body">
+        <p class="card-text">3日で変える簡単な方法！](https://www.reddit.com/r/sleep/comments/1rogqtq/change_your_sleep_schedule_in_23_days_easy/) (4 ups, 0 comments) - r/sleep</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">3 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/ClaudeCode/comments/1ropprc/how_do_you_get_the_best_coding_results/" target="_blank" rel="noopener">最高のコーディング結果を得るには？</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/ClaudeCode</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">3 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1ro6hua/options_available_in_rn_to_sync_local_databases/" target="_blank" rel="noopener">RNでローカルDBとSQL Server同期する方法</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/reactnative</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">3 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/expo/comments/1rokt9t/i_just_built_widgets_for_my_ios_app_would_love/" target="_blank" rel="noopener">iOSアプリにウィジェットを作った</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/expo</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">3 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/expo/comments/1roa2xt/how_do_you_handle_auth_flow_in_expo_router/" target="_blank" rel="noopener">Expo Routerでの認証フロー処理方法</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/expo</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">3 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/nutrition/comments/1rolyop/more_affordable_nutrient_dense_options_followup/" target="_blank" rel="noopener">もっと手頃な栄養密度の高い選択肢フォローアップ</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/nutrition</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-fitness">
+      <div class="card-header">
+        <span class="source-badge reddit-fitness">Reddit Fitness</span>
+        <span class="metric">3 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/sleep/comments/1roldod/6_simple_habits_that_can_improve_your_sleep/" target="_blank" rel="noopener">睡眠の質を改善する6つのシンプルな習慣</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/sleep</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">2 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/reactnative/comments/1roka7q/finally_apple_store_accepted_my_app/" target="_blank" rel="noopener">やっとApple Storeにアプリが承認された</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/reactnative</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">2 ups</span>
+      </div>
+      <h2 class="card-title"><a href="https://www.reddit.com/r/AppBusiness/comments/1rokduc/im_a_lawyer_who_built_a_contract_automation/" target="_blank" rel="noopener">弁護士が契約自動化プラットフォームをソロで構築</a></h2>
+      <div class="card-body">
+        <p class="card-text">r/AppBusiness</p>
+      </div>
+    </article>
+    <article class="card" data-stars="0" data-source="reddit-tech">
+      <div class="card-header">
+        <span class="source-badge reddit-tech">Reddit</span>
+        <span class="metric">1 ups</span>
+      </div>
+      <h2 class="card-title">[App Tourライブラリ for React Native (Expo/CLI)</h2>
+      <div class="card-body">
+        <p class="card-text">r/reactnative</p>
+      </div>
+      <div class="card-footer">
+        <span class="category-tag">★★★</span>
+      </div>
+    </article>
+  </main>
+</div>
+<script>
+(function() {
+  // Filter
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.stars === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Collapse
+  cards.forEach(card => {
+    const textEl = card.querySelector('.card-text');
+    if (!textEl) return;
+    const fullText = textEl.textContent;
+    const maxChars = 480;
+    if (fullText.length <= maxChars) return;
+
+    const truncated = fullText.slice(0, maxChars) + '...';
+    textEl.textContent = truncated;
+    textEl.classList.add('collapsed');
+    textEl.dataset.full = fullText;
+    textEl.dataset.truncated = truncated;
+
+    const btn = document.createElement('button');
+    btn.className = 'expand-btn';
+    btn.textContent = '\u7D9A\u304D\u3092\u8AAD\u3080';
+    btn.addEventListener('click', () => {
+      const isCollapsed = textEl.classList.contains('collapsed');
+      if (isCollapsed) {
+        textEl.textContent = textEl.dataset.full;
+        textEl.classList.remove('collapsed');
+        btn.textContent = '\u305F\u305F\u3080';
+      } else {
+        textEl.textContent = textEl.dataset.truncated;
+        textEl.classList.add('collapsed');
+        btn.textContent = '\u7D9A\u304D\u3092\u8AAD\u3080';
+      }
+    });
+    textEl.parentNode.appendChild(btn);
+  });
+})();
+</script>
+</body>
+</html>

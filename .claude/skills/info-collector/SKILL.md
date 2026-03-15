@@ -1,6 +1,6 @@
 ---
 name: info-collector
-description: "アプリグロース・マーケ・UX・AI開発ツール・フィットネス科学に特化した情報収集"
+description: "アプリグロース・マーケ・UX・AI開発ツール・NestJS・データ分析・フィットネス科学に特化した情報収集（HTML出力）"
 triggers:
   - "情報収集"
   - "info-collector"
@@ -9,17 +9,21 @@ triggers:
   - "/info-collector"
   - "フィットネス"
   - "fitness"
+  - "NestJS"
+  - "データ分析"
+  - "バックエンド"
+  - "データ基盤"
 ---
 
 # 情報収集スキル（info-collector）
 
-アプリグロース・マーケ・UX・AI開発ツール・フィットネス科学を中心に、はてなブックマークIT人気エントリー、Hacker News、Reddit、Claude Code公式情報、パレオな男、PubMedメタ分析を収集し、`anote/03-input/information/YYYYMMDD-trend.md` に保存する。
+アプリグロース・マーケ・UX・AI開発ツール・NestJS・データ分析・フィットネス科学を中心に、はてなブックマークIT人気エントリー、Hacker News、Reddit、Claude Code公式情報、Zenn、dev.to、パレオな男、PubMedメタ分析を収集し、`/Users/anno/Library/Mobile Documents/iCloud~md~obsidian/Documents/anote/03-input/information/YYYYMMDD-trend.html` に保存する。
 
 ## 実行手順
 
 ### 0. 興味領域の定義
 
-以下の10の興味領域を基準に記事を評価する：
+以下の12の興味領域を基準に記事を評価する：
 
 1. **アプリグロース・マーケティング** — アプリマーケ、広告（TikTok/SNS）、ASO、Push通知、ポイ活、サブスク収益化
 2. **UX/UI・プロダクトマネジメント** — ユーザー体験、認知負荷、N1分析、ユーザーインタビュー
@@ -31,10 +35,12 @@ triggers:
 8. **栄養・食事** — マクロ栄養素、サプリメント、食事タイミング、プロテイン、腸内環境、ダイエット
 9. **睡眠・リカバリー** — 睡眠の質、リカバリー戦略、ストレス管理、HRV、オーバートレーニング
 10. **健康科学・エビデンス** — メタ分析、システマティックレビュー、RCT、行動変容、メンタルヘルスと運動
+11. **NestJS・バックエンド** — NestJS実装パターン、事業グロース成功事例、API設計、マイクロサービス、TypeORM/Prisma
+12. **データ分析・データ基盤** — データ基盤構築、分析手法（統計/ML）、分析ツール（BigQuery/dbt/Looker）、AI時代のデータ分析、データドリブン経営
 
 ### 1. 重複排除の準備
 
-1. `anote/03-input/information/collected-history.md` をReadツールで読み込む
+1. `/Users/anno/Library/Mobile Documents/iCloud~md~obsidian/Documents/anote/03-input/information/collected-history.md` をReadツールで読み込む
 2. ファイル内の全URLをリストとして保持する
 3. 以降の収集ステップで、各記事URLをこのリストと照合し、既出URLの記事は出力から除外する
 4. 新規記事のURLのみを収集結果に含める
@@ -82,7 +88,7 @@ gh api repos/anthropics/claude-code/releases --jq '.[0:5] | .[] | "\(.tag_name)|
 - **タイトルは日本語に翻訳して出力**
 - 重複排除：既出URLの記事は除外
 
-### 5. Reddit テック系（9サブレッド）の収集
+### 5. Reddit テック系（14サブレッド）の収集
 
 **重要**: WebFetchツールはreddit.comをブロックするため、**Bashツールでcurlコマンドを使用**すること。
 各サブレッドから `/hot.json?t=day&limit=10` で上位10件を取得。
@@ -102,7 +108,7 @@ curl -s -H "User-Agent: info-collector/1.0 (trend analysis tool)" \
 - `data.children[].data.num_comments`: コメント数
 - `data.children[].data.permalink`: パス（`https://www.reddit.com` + permalink で完全URL）
 
-**対象サブレッド（9つ）：**
+**対象サブレッド（14つ）：**
 
 AI開発ツール系（1サブレッド）:
 - r/ClaudeCode
@@ -123,12 +129,59 @@ React Native/Expo系（2サブレッド）:
 - r/AppBusiness
 - r/startups
 
+NestJS・バックエンド系（2サブレッド）:
+- r/nestjs
+- r/node
+
+データ分析・基盤系（3サブレッド）:
+- r/dataengineering
+- r/datascience
+- r/MachineLearning
+
 取得項目：
 - 各記事の**タイトル、Redditコメントページの完全URL、投票数（ups）、コメント数**を取得
 - **タイトルは日本語に翻訳して出力**
 - 重複排除：既出URLの記事は除外
 
-### 6. パレオな男（フィットネス・健康科学ブログ）の収集
+### 6. Zenn（日本テック）の収集
+
+以下のURLからデイリートレンド記事を取得（WebFetchツール使用）：
+
+- `https://zenn.dev/api/articles?order=daily&count=30`
+
+WebFetchでJSON取得後、以下のフィールドを抽出：
+- `articles[].title`: タイトル
+- `articles[].path`: パス（`https://zenn.dev` + path で完全URL）
+- `articles[].liked_count`: いいね数
+- `articles[].emoji`: 記事の絵文字
+- `articles[].published_at`: 公開日
+
+取得項目：
+- 各記事の**タイトル、Zenn記事URL（`https://zenn.dev` + path）、いいね数**を取得
+- 重複排除：既出URLの記事は除外
+
+**フォールバック（API失敗時）:**
+- `https://zenn.dev/` トップページをWebFetchし、トレンド記事をHTML解析で取得する
+
+### 7. dev.to（グローバルテック）の収集
+
+以下のURLからトップ記事を取得（WebFetchツール使用）：
+
+- `https://dev.to/api/articles?top=1&per_page=30`
+
+WebFetchでJSON取得後、以下のフィールドを抽出：
+- `[].title`: タイトル
+- `[].url`: 記事URL
+- `[].positive_reactions_count`: リアクション数
+- `[].comments_count`: コメント数
+- `[].tag_list`: タグ一覧
+- `[].published_at`: 公開日
+
+取得項目：
+- 各記事の**タイトル（日本語訳）、記事URL、リアクション数、コメント数、タグ**を取得
+- 重複排除：既出URLの記事は除外
+
+### 8. パレオな男（フィットネス・健康科学ブログ）の収集
 
 - https://yuchrszk.blogspot.com/
 - WebFetchツールでトップページを取得
@@ -142,7 +195,7 @@ React Native/Expo系（2サブレッド）:
 - 睡眠・ストレス・回復 → 睡眠・リカバリー
 - メンタルヘルス・行動変容 → 健康科学・エビデンス
 
-### 7. PubMed メタ分析（運動・栄養・睡眠）の収集
+### 9. PubMed メタ分析（運動・栄養・睡眠）の収集
 
 以下の検索クエリでPubMedから最新のメタ分析・システマティックレビューを取得（WebFetchツール使用）。
 各クエリで最新5件程度を取得する。
@@ -163,7 +216,7 @@ React Native/Expo系（2サブレッド）:
 - 可能であればアブストラクトから**主要な知見を1行で要約**
 - 重複排除：既出URLの論文は除外
 
-### 8. Reddit フィットネス系サブレッド（5つ）の収集
+### 10. Reddit フィットネス系サブレッド（5つ）の収集
 
 **既存のReddit収集（ステップ5）と同じ方式で取得。** Bashツールでcurlコマンドを使用。
 各サブレッドから `/hot.json?t=day&limit=10` で上位10件を取得。
@@ -186,17 +239,18 @@ React Native/Expo系（2サブレッド）:
 - **タイトルは日本語に翻訳して出力**
 - 重複排除：既出URLの記事は除外
 
-### 9. 分析・興味度判定
+### 11. 分析・興味度判定
 
 収集した情報を以下の基準で評価：
 
 **興味度の定義**:
-- ★★★: アプリグロース、マーケ、UX、Claude Code/AI開発ツール、React Native/Expo に直接関連。フィットネスアプリに活かせる運動・栄養・睡眠のエビデンス（メタ分析・RCT）に直接関連
-- ★★: 開発生産性、チーム組織、ビジネス戦略、技術トレンド全般。フィットネス・健康関連の一般的な知見やトレンド
+- ★★★: アプリグロース、マーケ、UX、Claude Code/AI開発ツール、React Native/Expo に直接関連。フィットネスアプリに活かせる運動・栄養・睡眠のエビデンス（メタ分析・RCT）に直接関連。NestJSによる事業グロース成功事例、データ基盤構築のベストプラクティス、AI時代の分析手法に直接関連
+- ★★: 開発生産性、チーム組織、ビジネス戦略、技術トレンド全般。フィットネス・健康関連の一般的な知見やトレンド。バックエンド全般のトレンド、データ分析ツール比較、一般的なデータエンジニアリング
 - ★: 一般的なIT/技術ニュース。一般的な健康情報
 
 **カテゴリラベル**:
 - アプリグロース / マーケ / UX / AI開発 / RN/Expo / 開発生産性 / ビジネス戦略 / 技術全般
+- NestJS・バックエンド / データ分析・基盤
 - フィットネス・運動科学 / 栄養・食事 / 睡眠・リカバリー / 健康科学・エビデンス
 
 **分析の観点**:
@@ -206,27 +260,60 @@ React Native/Expo系（2サブレッド）:
 - 日本のエンジニアに刺さりやすい話題を重視
 - フィットネスアプリの機能開発に直結するエビデンス（運動プログラム設計、栄養ガイダンス、睡眠改善）を特に重視
 - メタ分析・システマティックレビューはエビデンスレベルが高いため優先的にピックアップ
+- NestJSでの事業グロース成功事例、データ基盤構築のベストプラクティスを重視
 
-### 10. 出力
+### 12. ★★★記事の全文取得（全件必須）
+
+セクション11の興味度判定で★★★と評価された記事は、**1件の例外もなくすべて**元記事の全文を取得する。
+
+**⚠️ 絶対ルール: ★★★記事は全件WebFetchすること。一部だけ取得して残りをスキップすることは禁止。**
+
+**手順:**
+1. ★★★記事のURLリストを作成し、**件数を数えて明示する**（例: 「★★★記事: 18件」）
+2. **全件**に対してWebFetchツールで本文を取得（並列実行を活用）
+3. 取得したテキストを整形（HTMLタグ除去、本文部分のみ抽出）
+4. 取得した全文はHTML出力時にカード内に埋め込む
+5. **取得完了後、取得成功件数と失敗件数を報告する**（例: 「18件中16件取得成功、2件失敗」）
+
+**セルフチェック:**
+- ★★★判定された記事が通常10〜25件になる。5件以下の場合は判定基準が厳しすぎるため見直すこと
+- 全文取得をスキップした記事がある場合、その理由を明示すること（WebFetch失敗のみ許容）
+
+**注意事項:**
+- WebFetchが失敗した場合（ペイウォール、403等）のみ概要メモで出力可。それ以外の理由でスキップは不可
+- PubMed論文はアブストラクトのみ取得（全文は通常有料）
+- Reddit/HNはコメントページの上位コメントを取得
+- 1記事あたりの取得テキスト上限: 10,000文字（超過分は切り捨て）
+
+### 13. 出力
 
 **まず「情報収集完了。」というメッセージを返してから、結果を出力ファイルに保存。**
 
-出力先: `anote/03-input/information/YYYYMMDD-trend.md`（YYYYMMDDは実行日の日付）
+出力先: `/Users/anno/Library/Mobile Documents/iCloud~md~obsidian/Documents/anote/03-input/information/YYYYMMDD-trend.html`（YYYYMMDDは実行日の日付）
 
-出力テンプレートは `~/.claude/skills/info-collector/assets/output-template.md` を参照。
+出力テンプレートは `/Users/anno/Library/Mobile Documents/iCloud~md~obsidian/Documents/anote/.claude/skills/info-collector/assets/output-template.html` を参照。
 
-出力ファイルの構成:
+HTML出力の構成:
 1. **Claude Code 最新情報** — 公式アップデート、新機能、Breaking Changes
-2. **はてブIT（日本市場）** — 注目トピック（★★★のみテーブル） + 全エントリー
-3. **Hacker News（グローバル）** — 注目トピック + 全エントリー
-4. **Reddit テック系（9サブレッド）** — 注目トピック + カテゴリ別エントリー
-5. **パレオな男（フィットネス科学）** — 最新記事一覧
-6. **PubMed メタ分析（運動・栄養・睡眠）** — カテゴリ別の最新論文
-7. **Reddit フィットネス系（5サブレッド）** — 注目トピック + カテゴリ別エントリー
+2. **はてブIT（日本市場）** — 注目トピック（★★★カード）+ 全エントリーカード
+3. **Hacker News（グローバル）** — 注目トピック + 全エントリーカード
+4. **Reddit テック系（14サブレッド）** — 注目トピック + カテゴリ別カード
+5. **Zenn（日本テック）** — 注目トピック + 全エントリーカード
+6. **dev.to（グローバルテック）** — 注目トピック + 全エントリーカード
+7. **パレオな男（フィットネス科学）** — 最新記事カード
+8. **PubMed メタ分析（運動・栄養・睡眠）** — カテゴリ別論文カード
+9. **Reddit フィットネス系（5サブレッド）** — 注目トピック + カテゴリ別カード
 
-### 11. 履歴ファイルの更新
+**HTML生成ルール:**
+- 出力テンプレートの `<div id="feed">` 内に、各記事を `<article class="card">` として追加
+- 各カードには `data-category`, `data-star`, `data-source`, `data-engagement` 属性を設定
+- ★★★記事のcard-bodyにはセクション12で取得した全文を埋め込む（プレーンテキスト、HTMLタグなし）
+- ★★以下の記事のcard-bodyには概要メモを記載
+- テンプレートのCSS/JSはそのまま保持し、カードのみ動的に生成する
 
-収集完了後、新規に取得した全記事のURLを `anote/03-input/information/collected-history.md` に追記する。
+### 14. 履歴ファイルの更新
+
+収集完了後、新規に取得した全記事のURLを `/Users/anno/Library/Mobile Documents/iCloud~md~obsidian/Documents/anote/03-input/information/collected-history.md` に追記する。
 
 フォーマット:
 ```markdown
@@ -244,9 +331,13 @@ React Native/Expo系（2サブレッド）:
 - **すべての記事にURLリンクを必ず含める（リンクなしは不可）**
 - **はてブは元記事のURLを必ず取得**（はてブページURLではなく）
 - **Hacker NewsはHNコメントページURL（`item?id=`形式）を使用**（元記事URLではなく）
-- **Hacker News・Redditのタイトルは日本語に翻訳**
+- **Hacker News・Reddit・dev.toのタイトルは日本語に翻訳**
 - **RedditはRedditコメントページの完全URL（`https://www.reddit.com/r/subreddit/comments/...`形式）を使用**
-- Reddit APIレート制限に注意（1分あたり60リクエスト程度）
+- Reddit APIレート制限に注意（1分あたり60リクエスト程度）— テック系14 + フィットネス系5 = 19サブレッド
+- Zenn APIは非公式のため、レスポンス形式変更時は `https://zenn.dev/` トップページをWebFetchしHTML解析で取得
+- dev.to APIはレート制限あり（30req/30sec）
+- ★★★記事はWebFetchで全文取得する。取得失敗時は概要メモのみで出力
+- 出力形式はHTML（.html）。Markdownは出力しない
 - 重複排除を必ず実施し、既出記事は出力に含めない
 - 出力ファイルのYYYYMMDDは実行日の日付を使用
 - 可能な限り並列でデータ取得を行い、効率化する
