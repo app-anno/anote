@@ -1,6 +1,12 @@
 # 収集済み記事履歴
 
 ## 2026-04-05
+- https://qiita.com/nogataka/items/5e64037cc452c5d497fa
+- https://note.com/m2ai_jp/n/na3869c615096
+- https://zenn.dev/aicon_kato/articles/harness-engineering-startup
+- https://k-tai.watch.impress.co.jp/docs/column/teppan/2098561.html
+- https://azukiazusa.dev/blog/difit-review-agent-comment/
+- https://www.m3tech.blog/entry/2026/04/03/180000
 - https://dev.classmethod.jp/articles/claudememo-20260403/
 - https://wirelesswire.jp/2026/04/93202/
 - https://zenn.dev/kenimo49/articles/harness-engineering-interpretations-2026
